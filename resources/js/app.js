@@ -21,6 +21,8 @@ window.Vue = require('vue');
 
 Vue.component('latest-recipes', require('./components/LatestRecipesComponent.vue').default);
 Vue.component('most-popular-recipes', require('./components/PopularRecipesComponent.vue').default);
+Vue.component('create-recipe', require('./components/CreateRecipeComponent.vue').default);
+
 
 
 /**

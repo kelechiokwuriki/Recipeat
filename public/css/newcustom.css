@@ -1,8 +1,10 @@
 .navigation-item:hover, .navigation-item:active, .active{
     color: #10c469 !important;
 }
-
-
+.recipe-image{
+    width:500px;
+    height:250px;
+}
 footer{
     position: fixed !important;
 }

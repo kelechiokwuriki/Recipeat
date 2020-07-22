@@ -6,7 +6,7 @@
                     <h4>Latest Recipes</h4>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-success btn-rounded width-md waves-effect waves-light">Add a recipe</button>
+                    <a href="/recipe/create" type="button" class="btn btn-success btn-rounded width-md waves-effect waves-light">Add a recipe</a>
                 </div>
             </div>
         </div>
@@ -15,16 +15,18 @@
 
                 <!-- Simple card -->
                 <div class="card shadow-lg" style="width: 20rem;">
-                    <img class="card-img-top shadow-md img-fluid recipe-card-image" :src="recipe.image_source" alt="Card image cap">
-                    <div class="card-img-overlay">
+                    <img class="card-img-top shadow-md img-fluid recipe-image" :src="recipe.image_source" alt="Card image cap">
+                    <div class="card-img-overlay h-50">
                         <h5 class="card-title bg-white w-50 p-0 border rounded text-center"><i class="far fa-clock mr-1"></i>25 minutes</h5>
+                        <!-- <a href="#" class="btn width-xs btn-success">View</a> -->
+
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">{{ recipe.name }}</h4>
                         <p class="card-text">Recipe by {{ recipe.user.name }}</p>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <a href="#" class="btn btn-primary">View Recipe</a>
+                                <a href="#" class="btn btn-success waves-effect waves-light">View Recipe</a>
                             </div>
                             <div>
                                 <p class="card-text">
