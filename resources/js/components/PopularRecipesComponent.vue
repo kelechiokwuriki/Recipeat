@@ -10,6 +10,9 @@
                 <!-- Simple card -->
                 <div class="card shadow-lg" style="width: 20rem;">
                     <img class="card-img-top img-fluid" :src="recipe.image_source" alt="Card image cap">
+                    <div class="card-img-overlay ">
+                        <h4 class="card-title bg-white w-50 p-1">25 minutes</h4>
+                    </div>
                     <div class="card-body">
                         <h4 class="card-title">{{ recipe.name }}</h4>
                          <p class="card-text">Recipe by {{ recipe.user.name }}</p>
@@ -54,3 +57,10 @@
         }
     }
 </script>
+
+
+<style scoped>
+    .recipe-length {
+        border: 10px red solid;
+    }
+</style>
