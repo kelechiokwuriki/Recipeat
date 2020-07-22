@@ -1,0 +1,13 @@
+.navigation-item:hover, .navigation-item:active, .active{
+    color: #10c469 !important;
+}
+
+
+footer{
+    position: fixed !important;
+}
+
+.header-text-color {
+    color: #F5F5F5 !important;
+}
+
