@@ -6,8 +6,8 @@ Website: https://coderthemes.com/
 Contact: support@coderthemes.com
 File: Main Css File
 */
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
-@import url("https://fonts.googleapis.com/css?family=Karla:400,700");
+@import url("https://fonts.googleapis.com/css?family=Alegreya:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Alegreya:400,700");
 html {
   position: relative;
   min-height: 100%; }
@@ -674,7 +674,7 @@ body.boxed-layout.enlarged .footer {
   min-width: 160px; }
 
 .font-family-secondary {
-  font-family: "Karla", sans-serif; }
+  font-family: "Alegreya", sans-serif; }
 
 .font-weight-medium {
   font-weight: 500; }
@@ -2107,7 +2107,7 @@ body.authentication-bg {
   text-shadow: rgba(113, 182, 249, 0.3) 5px 1px, rgba(113, 182, 249, 0.2) 10px 3px;
   font-size: 84px;
   line-height: 90px;
-  font-family: "Karla", sans-serif; }
+  font-family: "Alegreya", sans-serif; }
 
 .taskList {
   min-height: 40px;
@@ -2585,10 +2585,10 @@ h3.timeline-title {
 /*# sourceMappingURL=metisMenu.css.map */
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;
@@ -2738,7 +2738,7 @@ h3.timeline-title {
   height: auto !important; }
 
 .swal2-modal {
-  font-family: "Roboto", sans-serif;
+  font-family: "Alegreya", sans-serif;
   -webkit-box-shadow: 0 10px 33px rgba(0, 0, 0, 0.1);
           box-shadow: 0 10px 33px rgba(0, 0, 0, 0.1); }
   .swal2-modal .swal2-title {
@@ -2914,7 +2914,7 @@ h3.timeline-title {
 
 .ms-optgroup-label {
   font-weight: 500;
-  font-family: "Karla", sans-serif;
+  font-family: "Alegreya", sans-serif;
   color: #323a46 !important;
   font-size: 13px; }
 
@@ -3077,7 +3077,7 @@ h3.timeline-title {
   cursor: pointer; }
 
 .daterangepicker {
-  font-family: "Roboto", sans-serif; }
+  font-family: "Alegreya", sans-serif; }
   .daterangepicker td.active, .daterangepicker td.active:hover, .daterangepicker .ranges li.active {
     background-color: #71b6f9; }
 
@@ -3121,14 +3121,14 @@ h3.timeline-title {
   border-radius: 6px; }
 
 .ql-container {
-  font-family: "Roboto", sans-serif; }
+  font-family: "Alegreya", sans-serif; }
 
 .ql-bubble {
   border: 1px solid #ced4da;
   border-radius: 0.2rem; }
 
 .ql-toolbar {
-  font-family: "Roboto", sans-serif !important; }
+  font-family: "Alegreya", sans-serif !important; }
   .ql-toolbar span {
     outline: none !important; }
 
@@ -3308,7 +3308,7 @@ div.dt-button-info {
   .tablesaw thead tr:first-child th {
     border: none;
     font-weight: 500;
-    font-family: "Karla", sans-serif; }
+    font-family: "Alegreya", sans-serif; }
 
 .tablesaw td {
   border-top: 1px solid #f1f5f7 !important; }
@@ -3375,7 +3375,7 @@ div.dt-button-info {
 
 .legend tr {
   height: 30px;
-  font-family: "Karla", sans-serif; }
+  font-family: "Alegreya", sans-serif; }
 
 .legendLabel {
   padding-left: 5px !important;
@@ -3395,7 +3395,7 @@ div.dt-button-info {
     display: none; } }
 
 .morris-chart text {
-  font-family: "Karla", sans-serif !important; }
+  font-family: "Alegreya", sans-serif !important; }
 
 .morris-hover {
   position: absolute;
@@ -3407,12 +3407,12 @@ div.dt-button-info {
     padding: 10px 12px;
     background: #323a46;
     color: #fff;
-    font-family: "Roboto", sans-serif;
+    font-family: "Alegreya", sans-serif;
     border: none; }
     .morris-hover.morris-default-style .morris-hover-row-label {
       font-weight: bold;
       margin: 0.25em 0;
-      font-family: "Karla", sans-serif; }
+      font-family: "Alegreya", sans-serif; }
     .morris-hover.morris-default-style .morris-hover-point {
       white-space: nowrap;
       margin: 0.1em 0;
@@ -3535,7 +3535,7 @@ div.dt-button-info {
 .jqsfield {
   font-size: 12px !important;
   line-height: 18px !important;
-  font-family: "Roboto", sans-serif !important; }
+  font-family: "Alegreya", sans-serif !important; }
 
 .calendar {
   float: left;
@@ -3592,7 +3592,7 @@ div.dt-button-info {
   background-color: #f1f5f7;
   border-radius: 50%;
   margin: 5px;
-  font-family: "Karla", sans-serif;
+  font-family: "Alegreya", sans-serif;
   font-size: 12px; }
 
 .fc-button {
@@ -3714,7 +3714,7 @@ div.hopscotch-bubble {
     border-color: #71b6f9 !important;
     text-shadow: none !important;
     margin: 0 0 0 5px !important;
-    font-family: "Roboto", sans-serif;
+    font-family: "Alegreya", sans-serif;
     color: #fff !important; }
   div.hopscotch-bubble .hopscotch-bubble-number {
     background: #ff5b5b;
@@ -3740,10 +3740,10 @@ div.hopscotch-bubble {
   div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-arrow-border {
     border-top: 0 solid rgba(0, 0, 0, 0.5); }
   div.hopscotch-bubble h3 {
-    font-family: "Karla", sans-serif;
+    font-family: "Alegreya", sans-serif;
     margin-bottom: 10px; }
   div.hopscotch-bubble .hopscotch-content {
-    font-family: "Roboto", sans-serif; }
+    font-family: "Alegreya", sans-serif; }
 
 .jstree-default .jstree-node,
 .jstree-default .jstree-icon {
@@ -3825,6 +3825,6 @@ div.hopscotch-bubble {
   border: none;
   background: #323a46;
   color: #fff;
-  font-family: "Karla", sans-serif;
+  font-family: "Alegreya", sans-serif;
   font-size: 0.9rem;
   padding: 5px 8px; }
