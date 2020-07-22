@@ -16,16 +16,19 @@
                 <!-- Simple card -->
                 <div class="card shadow-lg" style="width: 20rem;">
                     <img class="card-img-top shadow-md img-fluid recipe-card-image" :src="recipe.image_source" alt="Card image cap">
+                    <div class="card-img-overlay">
+                        <h5 class="card-title bg-white w-50 p-0 border rounded text-center"><i class="far fa-clock mr-1"></i>25 minutes</h5>
+                    </div>
                     <div class="card-body">
                         <h4 class="card-title">{{ recipe.name }}</h4>
                         <p class="card-text">Recipe by {{ recipe.user.name }}</p>
                         <div class="d-flex justify-content-between">
                             <div>
-                                <a href="#" class="btn btn-primary">Button</a>
+                                <a href="#" class="btn btn-primary">View Recipe</a>
                             </div>
                             <div>
                                 <p class="card-text">
-                                    <small class="text-muted">Last updated {{ moment(recipe.updated_at).fromNow() }}</small>
+                                    <small class="text-muted">{{ recipe.view_count }} views</small>
                                 </p>
                             </div>
                         </div>
