@@ -21,9 +21,6 @@ window.Vue = require('vue');
 import TextareaAutosize from 'vue-textarea-autosize';
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
-import VueNumberInput from '@chenfengyuan/vue-number-input';
-
-
 
 
 Vue.component('latest-recipes', require('./components/LatestRecipesComponent.vue').default);
@@ -32,9 +29,6 @@ Vue.component('create-recipe', require('./components/CreateRecipeComponent.vue')
 
 
 Vue.component('v-select', vSelect);
-Vue.component('number-input', VueNumberInput);
-
-
 
 Vue.use(TextareaAutosize);
 
