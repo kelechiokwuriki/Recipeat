@@ -139,11 +139,12 @@
 
                 this.recipeStepId--;
             },
-            outputFeedBack(title, text, icon) {
+            outputFeedBack(title, text, icon, footer) {
                 Swal.fire({
                     title: title,
                     text: text,
-                    icon: icon
+                    icon: icon,
+                    footer: footer
                 });
             },
             clearFormElements() {
@@ -158,7 +159,10 @@
 
                 axios.post('/api/recipe', this.recipe).then(response => {
                     if(response.status === 200) {
-                       this.outputFeedBack('Success', 'Yes! you have created your recipe', 'success');
+                       this.outputFeedBack('Success',
+                       'Yes! you have created your recipe',
+                       'success',
+                       '<a href="/home">Take me to see the recipes</a>');
 
                        this.clearFormElements();
                     }
