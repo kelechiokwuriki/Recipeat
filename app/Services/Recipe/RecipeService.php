@@ -4,6 +4,7 @@ namespace App\Services\Recipe;
 
 use App\Repositories\Recipe\RecipeRepository;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class RecipeService
 {
@@ -22,5 +23,10 @@ class RecipeService
     public function getThreeMostPopularRecipes()
     {
         return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with('user')->get();
+    }
+
+    public function createRecipe(array $recipe)
+    {
+        Log::debug($recipe);
     }
 }

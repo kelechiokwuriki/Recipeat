@@ -74,7 +74,7 @@
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item active">
                                         <div class="notify-icon">
-                                            <img src="assets/images/users/user-1.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                            <img src="{{ asset('assets/images/users/user-1.jpg') }}" class="img-fluid rounded-circle" alt="" /> </div>
                                         <p class="notify-details">Cristina Pride</p>
                                         <p class="text-muted mb-0 user-msg">
                                             <small>Hi, How are you? What about our next meeting</small>
@@ -94,7 +94,7 @@
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <div class="notify-icon">
-                                            <img src="assets/images/users/user-4.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                            <img src="{{ asset('assets/images/users/user-4.jpg') }}" class="img-fluid rounded-circle" alt="" /> </div>
                                         <p class="notify-details">Karen Robinson</p>
                                         <p class="text-muted mb-0 user-msg">
                                             <small>Wow ! this admin looks good and awesome design</small>
@@ -205,7 +205,7 @@
                     </span>
                     <span class="logo-sm">
                         <!-- <span class="logo-sm-text-dark">X</span> -->
-                        <img src="assets/images/logo-sm.png" alt="" height="24">
+                        <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="24">
                     </span>
                 </a>
             </div>
@@ -238,7 +238,7 @@
                             <li class="menu-title">Navigation</li>
 
                             <li>
-                            <a to="/home" class="navigation-item {{ (request()->is('home')) ? 'active' : '' }}">
+                            <a href="/home" class="navigation-item {{ (request()->is('home')) ? 'active' : '' }}">
                                     <i class="mdi mdi-food"></i>
                                     <span> Home </span>
                                 </a>
@@ -304,6 +304,12 @@
         <!-- end Footer -->
 
     </div>
+
+    <script>
+        window.Laravel = {!!json_encode([
+            "apiToken" => auth()->user()->api_token ?? null
+        ]) !!};
+    </script>
 
 
         <!-- Vendor js -->

@@ -18,11 +18,24 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import TextareaAutosize from 'vue-textarea-autosize';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+import VueNumberInput from '@chenfengyuan/vue-number-input';
+
+
 
 Vue.component('latest-recipes', require('./components/LatestRecipesComponent.vue').default);
 Vue.component('most-popular-recipes', require('./components/PopularRecipesComponent.vue').default);
 Vue.component('create-recipe', require('./components/CreateRecipeComponent.vue').default);
 
+
+Vue.component('v-select', vSelect);
+Vue.component('number-input', VueNumberInput);
+
+
+
+Vue.use(TextareaAutosize);
 
 
 /**
@@ -32,5 +45,5 @@ Vue.component('create-recipe', require('./components/CreateRecipeComponent.vue')
  */
 
 const app = new Vue({
-    el: '#wrapper',
+    el: '#wrapper'
 });
