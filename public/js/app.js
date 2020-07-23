@@ -2545,7 +2545,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2558,7 +2557,7 @@ __webpack_require__.r(__webpack_exports__);
       },
       recipeInstructionId: 1,
       recipeInstruction: '',
-      disableSubmitButton: true,
+      // disableSubmitButton: true,
       options: ["Minutes", "Hours"]
     };
   },
@@ -2603,6 +2602,15 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/recipe', this.recipe).then(function (response) {
         console.log(response);
       });
+    }
+  },
+  computed: {
+    disableSubmitButton: function disableSubmitButton() {
+      if (this.recipe.name === '' || this.recipe.cooking_time_format === '' || this.recipe.ingredients === '' || this.recipe.instructions.length === 0) {
+        return true;
+      }
+
+      return false;
     }
   }
 });
@@ -60374,7 +60382,8 @@ var render = function() {
                   model: {
                     value: _vm.recipeInstruction,
                     callback: function($$v) {
-                      _vm.recipeInstruction = $$v
+                      _vm.recipeInstruction =
+                        typeof $$v === "string" ? $$v.trim() : $$v
                     },
                     expression: "recipeInstruction"
                   }

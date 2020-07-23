@@ -69,14 +69,13 @@
                             <div class="col-sm-11">
                                 <!-- <label for="instruction">Instructions</label> -->
                                 <textarea-autosize id="instruction" class="form-control" aria-describedby="instructionHelp" ref="headerTextArea"
-                                v-model="recipeInstruction" :min-height="10"/>
+                                v-model.trim="recipeInstruction" :min-height="10"/>
                                 <small id="instructionHelp" class="form-text">Add instructions for your recipe</small>
                             </div>
                             <div class="col-sm-1">
                                 <button type="submit" class="btn btn-icon btn-success waves-effect waves-light" @click="addInstruction">
                                     <i class="fas fa-plus"></i></button>
                             </div>
-
                     </div>
 
                 </div>
@@ -104,7 +103,7 @@
                 },
                 recipeInstructionId: 1,
                 recipeInstruction: '',
-                disableSubmitButton: true,
+                // disableSubmitButton: true,
                 options: [
                     "Minutes",
                     "Hours"
@@ -146,6 +145,19 @@
                 axios.post('/api/recipe', this.recipe).then(response => {
                     console.log(response);
                 })
+            }
+        },
+        computed: {
+            disableSubmitButton() {
+                if(this.recipe.name === '' || this.recipe.cooking_time_format === '' || this.recipe.ingredients === ''
+                    || this.recipe.instructions.length === 0) {
+                        return true;
+                }
+
+
+                return false;
+
+
             }
         }
     }
