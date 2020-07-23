@@ -47,16 +47,16 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Instruction</th>
+                                        <th>Step</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="instruction in recipe.instructions" v-bind:key="instruction.id">
-                                        <th scope="row">{{ instruction.id }}</th>
-                                        <td>{{ instruction.instruction }}</td>
+                                    <tr v-for="step in recipe.steps" v-bind:key="step.id">
+                                        <th scope="row">{{ step.id }}</th>
+                                        <td>{{ step.step }}</td>
                                         <td>
-                                            <button class="btn btn-icon btn-danger btn-xs" @click="removeInstruction(instruction.id)">
+                                            <button class="btn btn-icon btn-danger btn-xs" @click="removeStep(step.id)">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                         </td>
@@ -68,12 +68,12 @@
                     <div class="col-sm-6 row">
                             <div class="col-sm-11">
                                 <!-- <label for="instruction">Instructions</label> -->
-                                <textarea-autosize id="instruction" class="form-control" aria-describedby="instructionHelp" ref="headerTextArea"
-                                v-model.trim="recipeInstruction" :min-height="10"/>
-                                <small id="instructionHelp" class="form-text">Add instructions for your recipe</small>
+                                <textarea-autosize id="step" class="form-control" aria-describedby="stepHelp" ref="headerTextArea"
+                                v-model.trim="recipeStep" :min-height="10"/>
+                                <small id="stepHelp" class="form-text">Add steps for your recipe</small>
                             </div>
                             <div class="col-sm-1">
-                                <button type="submit" class="btn btn-icon btn-success waves-effect waves-light" @click="addInstruction">
+                                <button type="submit" class="btn btn-icon btn-success waves-effect waves-light" @click="addStep">
                                     <i class="fas fa-plus"></i></button>
                             </div>
                     </div>
@@ -99,10 +99,10 @@
                     cooking_time: null,
                     cooking_time_format: '',
                     ingredients: '',
-                    instructions: []
+                    steps: []
                 },
-                recipeInstructionId: 1,
-                recipeInstruction: '',
+                recipeStepId: 1,
+                recipeStep: '',
                 // disableSubmitButton: true,
                 options: [
                     "Minutes",
@@ -121,43 +121,58 @@
 
                 return moment();
             },
-            addInstruction(e) {
+            addStep(e) {
                 e.preventDefault();
 
-                this.recipe.instructions.push({
-                    id: this.recipeInstructionId,
-                    instruction: this.recipeInstruction
+                this.recipe.steps.push({
+                    id: this.recipeStepId,
+                    step: this.recipeStep
                 });
 
-                this.recipeInstruction = '';
-                this.recipeInstructionId++;
+                this.recipeStep = '';
+                this.recipeStepId++;
             },
-            removeInstruction(id) {
-                this.recipe.instructions = this.recipe.instructions.filter(instruction => {
-                    return instruction.id != id;
+            removeStep(id) {
+                this.recipe.steps = this.recipe.steps.filter(step => {
+                    return step.id != id;
                 });
 
-                this.recipeInstructionId--;
+                this.recipeStepId--;
+            },
+            outputFeedBack(title, text, icon) {
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: icon
+                });
+            },
+            clearFormElements() {
+                this.recipe.name = '';
+                this.recipe.cooking_time = null;
+                this.recipe.cooking_time_format = '';
+                this.recipe.ingredients = '';
+                this.recipe.steps = [];
             },
             submitRecipe(e) {
                 e.preventDefault();
 
                 axios.post('/api/recipe', this.recipe).then(response => {
-                    console.log(response);
+                    if(response.status === 200) {
+                       this.outputFeedBack('Success', 'Yes! you have created your recipe', 'success');
+
+                       this.clearFormElements();
+                    }
                 })
             }
         },
         computed: {
             disableSubmitButton() {
                 if(this.recipe.name === '' || this.recipe.cooking_time_format === '' || this.recipe.ingredients === ''
-                    || this.recipe.instructions.length === 0) {
+                    || this.recipe.steps.length === 0) {
                         return true;
                 }
 
-
                 return false;
-
-
             }
         }
     }

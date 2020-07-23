@@ -12,12 +12,5 @@ class RecipeRepository extends BaseRepository
     public function __construct(Recipe $recipeModel)
     {
         parent::__construct($recipeModel);
-
-        $this->recipeModel = $recipeModel;
     }
-
-    // public function getLatestRecipesByNumberAndOrder(string $column, int $number)
-    // {
-    //     return $this->recipeModel->orderBy($column)->take($number)->get();
-    // }
 }

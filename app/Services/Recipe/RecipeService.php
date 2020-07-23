@@ -4,6 +4,7 @@ namespace App\Services\Recipe;
 
 use App\Recipe;
 use App\Repositories\Recipe\RecipeRepository;
+use App\Repositories\Step\StepRepository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -11,10 +12,12 @@ use Illuminate\Support\Facades\Log;
 class RecipeService
 {
     protected $recipeRepository;
+    protected $stepRepository;
 
-    public function __construct(RecipeRepository $recipeRepository)
+    public function __construct(RecipeRepository $recipeRepository, StepRepository $stepRepository)
     {
         $this->recipeRepository = $recipeRepository;
+        $this->stepRepository = $stepRepository;
     }
 
     public function getLatestThreeCreatedRecipes()
@@ -33,22 +36,23 @@ class RecipeService
 
         $recipeAttributes = $this->transformRecipeData($recipe['name'], $recipe['ingredients'], $cookingTime);
 
-        $recipeSaved = $this->recipeRepository->create($recipeAttributes);
+        $savedRecipe = $this->recipeRepository->create($recipeAttributes);
 
-        Log::debug($recipeSaved);
+        return $this->syncRecipeWithSteps($savedRecipe, $recipe['steps']);
     }
 
-    private function syncRecipeWithIngredients(Recipe $recipe, array $ingredients)
+    private function syncRecipeWithSteps(Recipe $recipe, array $steps)
     {
-        $ingredientIds = [];
+        $stepIds = [];
 
-        foreach($ingredients as $ingredient) {
-            $ingredientIds[] = $this->ingredientService->saveIngredient($ingredient)->id;
+        foreach($steps as $step) {
+            $stepIds[] = $this->stepRepository->create([
+                'step' => $step['step']
+            ])->id;
         }
 
-        //attach the ingredient to the recipe //many to many relationship
-        $recipe->ingredients()->sync($ingredientIds);
-
+        //attach the steps to the recipe //many to many relationship
+        return $recipe->steps()->sync($stepIds);
     }
 
     private function transformRecipeData(string $recipeName, string $ingredients, string $cookingTime)
