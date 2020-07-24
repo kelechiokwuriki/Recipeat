@@ -32,11 +32,6 @@
                     <div class="col-sm-6">
                         <label for="cooking-time-format">Format</label>
                         <v-select id="cooking-time-format" :options="options" v-model="recipe.cooking_time_format"></v-select>
-                        <!-- <select name="selecttime" v-model="recipe.cooking_time_format" class="form-control" id="preparation-time-format">
-                            <option value="">--Please choose an option--</option>
-                            <option value="minutes">minutes</option>
-                            <option value="hours">hours</option>
-                        </select> -->
                     </div>
                 </div>
 

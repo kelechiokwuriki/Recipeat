@@ -2,7 +2,7 @@
     <div class="card shadow-lg" style="width: 20rem;">
         <img class="card-img-top shadow-md img-fluid recipe-image" :src="recipe.image_source" alt="Card image cap">
         <div class="card-img-overlay h-50">
-            <h5 class="card-title bg-white w-50 p-0 border rounded text-center"><i class="far fa-clock mr-1"></i>25 minutes</h5>
+            <h5 class="card-title bg-white w-50 p-0 border rounded text-center"><i class="far fa-clock mr-1"></i>{{ recipe.cooking_time }}</h5>
             <!-- <a href="#" class="btn width-xs btn-success">View</a> -->
 
         </div>
@@ -19,7 +19,6 @@
                     </p>
                 </div>
             </div>
-
         </div>
     </div>
 </template>

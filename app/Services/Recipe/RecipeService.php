@@ -5,6 +5,8 @@ namespace App\Services\Recipe;
 use App\Recipe;
 use App\Repositories\Recipe\RecipeRepository;
 use App\Repositories\Step\StepRepository;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +30,12 @@ class RecipeService
     public function getThreeMostPopularRecipes()
     {
         return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with('user')->get();
+    }
+
+
+    public function returnTime($time)
+    {
+        return CarbonInterval::createFromFormat('H:i:s', $time);
     }
 
     public function createRecipe(array $recipe)
@@ -72,12 +80,14 @@ class RecipeService
         $newTime = strlen($cookingTime) === 2 ? $cookingTime : '0'.$cookingTime;
 
         if($cookingTimeFormat === 'Minutes') {
-            return '00:'.$newTime.':00';
+            $newTime = '00:'.$newTime.':00';
         }
 
         if($cookingTimeFormat === 'Hours')
         {
-            return $newTime.':00'.':00';
+            $newTime = $newTime.':00'.':00';
         }
+
+        return CarbonInterval::createFromFormat('H:i:s', $newTime);
     }
 }

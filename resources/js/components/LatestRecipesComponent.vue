@@ -12,12 +12,8 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-xl-3 mr-0" v-for="recipe in latestthreerecipes" v-bind:key="recipe.id">
-
                 <recipe-component :recipe="recipe"></recipe-component>
-
             </div>
-            <!-- end col -->
-
         </div>
     </div>
 </template>
@@ -26,15 +22,6 @@
     export default {
         mounted() {
             console.log('Component mounted.')
-        },
-        methods:{
-            moment(date) {
-                if(date) {
-                    return moment(date);
-                }
-
-                return moment();
-             },
         },
         props:{
             latestthreerecipes:{

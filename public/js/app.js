@@ -2540,11 +2540,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2667,32 +2662,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
-  },
-  methods: {
-    moment: function (_moment) {
-      function moment(_x) {
-        return _moment.apply(this, arguments);
-      }
-
-      moment.toString = function () {
-        return _moment.toString();
-      };
-
-      return moment;
-    }(function (date) {
-      if (date) {
-        return moment(date);
-      }
-
-      return moment();
-    })
   },
   props: {
     latestthreerecipes: {
@@ -2729,29 +2701,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
-  },
-  methods: {
-    moment: function (_moment) {
-      function moment(_x) {
-        return _moment.apply(this, arguments);
-      }
-
-      moment.toString = function () {
-        return _moment.toString();
-      };
-
-      return moment;
-    }(function (date) {
-      if (date) {
-        return moment(date);
-      }
-
-      return moment();
-    })
   },
   props: {
     threemostpopularrecipes: {
@@ -2771,7 +2723,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -63800,7 +63751,19 @@ var render = function() {
         attrs: { src: _vm.recipe.image_source, alt: "Card image cap" }
       }),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "card-img-overlay h-50" }, [
+        _c(
+          "h5",
+          {
+            staticClass:
+              "card-title bg-white w-50 p-0 border rounded text-center"
+          },
+          [
+            _c("i", { staticClass: "far fa-clock mr-1" }),
+            _vm._v(_vm._s(_vm.recipe.cooking_time))
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("h4", { staticClass: "card-title" }, [
@@ -63812,7 +63775,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "d-flex justify-content-between" }, [
-          _vm._m(1),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", [
             _c("p", { staticClass: "card-text" }, [
@@ -63827,20 +63790,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-img-overlay h-50" }, [
-      _c(
-        "h5",
-        {
-          staticClass: "card-title bg-white w-50 p-0 border rounded text-center"
-        },
-        [_c("i", { staticClass: "far fa-clock mr-1" }), _vm._v("25 minutes")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
