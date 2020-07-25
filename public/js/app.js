@@ -2806,9 +2806,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      src: 'assets/images/gallery/food7.jpeg'
-    };
+    return {};
   },
   props: {
     recipe: {
@@ -63935,7 +63933,7 @@ var render = function() {
             _c("img", {
               staticClass: "card-img-top shadow-md img-fluid recipe-image",
               attrs: {
-                src: _vm.currentUrlPathName + _vm.src,
+                src: _vm.currentUrlPathName + _vm.recipe.image_source,
                 alt: "Card image cap"
               }
             })

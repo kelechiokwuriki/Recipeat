@@ -14,7 +14,7 @@
             <div class="row mt-3">
                 <div class="col">
                     <div class="card bg-dark text-white">
-                        <img :src="currentUrlPathName + src" alt="Card image cap" class="card-img-top shadow-md img-fluid recipe-image">
+                        <img :src="currentUrlPathName + recipe.image_source" alt="Card image cap" class="card-img-top shadow-md img-fluid recipe-image">
                     </div>
                 </div>
                 <div class="col">
@@ -39,7 +39,6 @@
     export default {
         data() {
             return {
-                src: 'assets/images/gallery/food7.jpeg',
             }
         },
         props: {
