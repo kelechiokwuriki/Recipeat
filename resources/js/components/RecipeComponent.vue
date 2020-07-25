@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <h4 class="card-title">{{ recipe.name }}</h4>
-                <p class="card-text">Recipe by {{ recipe.user.name }}</p>
+                <p class="card-text" v-if="recipe.user">Recipe by {{ recipe.user.name }}</p>
                 <div class="d-flex justify-content-between">
                     <div>
                         <a :href="'/recipe/' + recipe.slug" class="btn btn-success waves-effect waves-light">View Recipe</a>

@@ -290,7 +290,7 @@
 
         <!--content-->
         <div class="content-page">
-            <div class="content">
+            <div class="content container-fluid mt-2">
                 @yield('content')
             </div>
         </div>

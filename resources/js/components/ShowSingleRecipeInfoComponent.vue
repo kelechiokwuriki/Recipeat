@@ -1,19 +1,18 @@
 <template>
     <transition name="fade" appear>
-
-    <div class="container mt-3">
         <div class="card-box">
             <div class="d-flex justify-content-between">
                 <div>
                     <h4 class="header-title text-capitalize">{{ recipe.name }} by {{ recipe.user.name }}</h4>
+                    <h5 class="text-success"><i class="far fa-clock mr-1 "></i>{{ recipe.cooking_time }}</h5>
+
                 </div>
                 <div>
                     <h4 class="header-title">Made on {{ moment(recipe.created_at).format('LL') }}</h4>
                 </div>
             </div>
 
-            <h5 class="text-success"><i class="far fa-clock mr-1 "></i>{{ recipe.cooking_time }}</h5>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mt-3">
                 <div class="col-sm-4">
                     <div class="card bg-dark text-white">
                         <img :src="currentUrlPathName + recipe.image_source" alt="Card image cap" class="card-img-top shadow-md img-fluid recipe-image">
@@ -34,7 +33,6 @@
             </div>
 
         </div>
-    </div>
     </transition>
 </template>
 

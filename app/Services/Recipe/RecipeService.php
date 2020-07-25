@@ -32,15 +32,14 @@ class RecipeService
         return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with('user')->get();
     }
 
-
-    public function returnTime($time)
-    {
-        return CarbonInterval::createFromFormat('H:i:s', $time);
-    }
-
     public function getRecipeBySlug(string $slug)
     {
         return $this->recipeRepository->where('slug', $slug)->with(['steps', 'user'])->first();
+    }
+
+    public function getRecipesForUser(int $userId)
+    {
+        return $this->recipeRepository->where('user_id', $userId)->with('steps')->get();
     }
 
     public function createRecipe(array $recipe)
@@ -83,6 +82,7 @@ class RecipeService
 
     private function convertRecipeCookingTime(int $cookingTime, string $cookingTimeFormat)
     {
+        //e.g 10 should be to but 5 should be 05
         $newTime = strlen($cookingTime) === 2 ? $cookingTime : '0'.$cookingTime;
 
         if($cookingTimeFormat === 'Minutes') {

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div>
         <div class="border-bottom mb-3 p-2">
             <div class="d-flex justify-content-between">
                 <div>
