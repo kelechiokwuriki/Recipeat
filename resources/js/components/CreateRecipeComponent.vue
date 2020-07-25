@@ -25,7 +25,7 @@
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="cookingTime">Cooking time</label>
-                        <number-input id="cookingTime" v-model="recipe.cooking_time" :min="1" :max="10" controls></number-input>
+                        <number-input id="cookingTime" v-model="recipe.cooking_time" :min="1" controls></number-input>
 
                         <!-- <input type="number" v-model="recipe.cooking_time" value="0" min="0" id="preparationtime" class="form-control"> -->
                     </div>

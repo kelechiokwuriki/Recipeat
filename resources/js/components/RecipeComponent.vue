@@ -11,7 +11,7 @@
             <p class="card-text">Recipe by {{ recipe.user.name }}</p>
             <div class="d-flex justify-content-between">
                 <div>
-                    <a href="#" class="btn btn-success waves-effect waves-light">View Recipe</a>
+                    <a :href="'/recipe/' + recipe.slug" class="btn btn-success waves-effect waves-light">View Recipe</a>
                 </div>
                 <div>
                     <p class="card-text">

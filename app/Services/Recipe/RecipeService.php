@@ -38,6 +38,11 @@ class RecipeService
         return CarbonInterval::createFromFormat('H:i:s', $time);
     }
 
+    public function getRecipeBySlug(string $slug)
+    {
+        return $this->recipeRepository->where('slug', $slug)->first();
+    }
+
     public function createRecipe(array $recipe)
     {
         $cookingTime = $this->convertRecipeCookingTime($recipe['cooking_time'], $recipe['cooking_time_format']);
@@ -71,7 +76,8 @@ class RecipeService
             'user_id' => auth()->id(),
             'view_count' => 0,
             'cooking_time' => $cookingTime,
-            'image_source' => 'assets/images/gallery/food7.jpeg'
+            'image_source' => 'assets/images/gallery/food7.jpeg',
+            'slug' => preg_replace('/\s+/', '-', strtolower($recipeName)).'-'.Carbon::now()->timestamp
         ];
     }
 

@@ -27,6 +27,8 @@ Vue.component('latest-recipes', require('./components/LatestRecipesComponent.vue
 Vue.component('most-popular-recipes', require('./components/PopularRecipesComponent.vue').default);
 Vue.component('create-recipe', require('./components/CreateRecipeComponent.vue').default);
 Vue.component('recipe-component', require('./components/RecipeComponent.vue').default);
+Vue.component('single-recipe-component', require('./components/ShowSingleRecipeInfoComponent.vue').default);
+
 
 
 

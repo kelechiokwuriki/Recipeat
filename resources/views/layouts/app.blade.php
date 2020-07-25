@@ -238,14 +238,26 @@
                             <li class="menu-title">Navigation</li>
 
                             <li>
-                            <a href="/home" class="navigation-item {{ (request()->is('home')) ? 'active' : '' }}">
+                                <a href="/home" class="navigation-item {{ (request()->is('home')) ? 'active' : '' }}">
                                     <i class="mdi mdi-food"></i>
                                     <span> Home </span>
                                 </a>
                             </li>
                             <li>
+                                <a href="/my-recipes" class="navigation-item {{ (request()->is('what-can-i-cook')) ? 'active' : '' }}">
+                                    <i class="fas fa-scroll"></i>
+                                    <span> My recipes </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/saved-recipes" class="navigation-item {{ (request()->is('what-can-i-cook')) ? 'active' : '' }}">
+                                    <i class="fas fa-heart text-danger"></i>
+                                    <span> Saved recipes </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="/what-can-i-cook" class="navigation-item {{ (request()->is('what-can-i-cook')) ? 'active' : '' }}">
-                                    <i class="mdi mdi-book-open-page-variant"></i>
+                                    <i class="fas fa-question"></i>
                                     <span> What can i cook? </span>
                                 </a>
                             </li>

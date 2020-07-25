@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Recipe\RecipeService;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
+    protected $recipeService;
+
+    public function __construct(RecipeService $recipeService)
+    {
+        $this->recipeService = $recipeService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,9 +50,12 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $recipe = $this->recipeService->getRecipeBySlug($slug);
+
+        return view('recipe.show')->with(['recipe' => $recipe]);
+
     }
 
     /**
