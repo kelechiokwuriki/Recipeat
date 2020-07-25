@@ -10,11 +10,11 @@
                 </div>
             </div>
 
-            <h5><i class="far fa-clock mr-1"></i>{{ recipe.cooking_time }}</h5>
+            <h5 class="text-success"><i class="far fa-clock mr-1 "></i>{{ recipe.cooking_time }}</h5>
             <div class="row mt-3">
                 <div class="col">
                     <div class="card bg-dark text-white">
-                        <img :src="recipe.image_source" alt="Card image cap" class="card-img-top shadow-md img-fluid recipe-image">
+                        <img :src="currentUrlPathName + src" alt="Card image cap" class="card-img-top shadow-md img-fluid recipe-image">
                     </div>
                 </div>
                 <div class="col">
@@ -37,9 +37,20 @@
 
 <script>
     export default {
+        data() {
+            return {
+                src: 'assets/images/gallery/food7.jpeg',
+            }
+        },
         props: {
             recipe: {
                 type: Object
+            }
+        },
+        computed: {
+            currentUrlPathName() {
+                let pathName = window.location.pathname;
+                return pathName.substring(1, pathName-1);
             }
         },
         methods: {
