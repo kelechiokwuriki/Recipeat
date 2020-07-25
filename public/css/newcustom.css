@@ -2,7 +2,9 @@
     color: #10c469 !important;
 }
 .recipe-image{
-    width:500px;
+    object-fit: cover;
+    width: 100%;
+    /* width:500px; */
     height:250px;
 }
 footer{

@@ -13,7 +13,7 @@
             </div>
 
             <h5 class="text-success"><i class="far fa-clock mr-1 "></i>{{ recipe.cooking_time }}</h5>
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-sm-4">
                     <div class="card bg-dark text-white">
                         <img :src="currentUrlPathName + recipe.image_source" alt="Card image cap" class="card-img-top shadow-md img-fluid recipe-image">
