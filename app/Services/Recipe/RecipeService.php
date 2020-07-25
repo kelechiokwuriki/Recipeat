@@ -40,7 +40,7 @@ class RecipeService
 
     public function getRecipeBySlug(string $slug)
     {
-        return $this->recipeRepository->where('slug', $slug)->first();
+        return $this->recipeRepository->where('slug', $slug)->with(['steps', 'user'])->first();
     }
 
     public function createRecipe(array $recipe)

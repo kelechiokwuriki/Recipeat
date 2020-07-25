@@ -2775,11 +2775,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     recipe: {
       type: Object
     }
+  },
+  methods: {
+    moment: function (_moment) {
+      function moment(_x) {
+        return _moment.apply(this, arguments);
+      }
+
+      moment.toString = function () {
+        return _moment.toString();
+      };
+
+      return moment;
+    }(function (date) {
+      if (date) {
+        return moment(date);
+      }
+
+      return moment();
+    })
   }
 });
 
@@ -63849,8 +63897,60 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container mt-3" }, [
     _c("div", { staticClass: "card-box" }, [
-      _c("h4", { staticClass: "mt-0 mb-3 header-title text-capitalize" }, [
-        _vm._v(_vm._s(_vm.recipe.name))
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("div", [
+          _c("h4", { staticClass: "header-title text-capitalize" }, [
+            _vm._v(
+              _vm._s(_vm.recipe.name) + " by " + _vm._s(_vm.recipe.user.name)
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("h4", { staticClass: "header-title" }, [
+            _vm._v(_vm._s(_vm.moment(_vm.recipe.created_at).format("LLL")))
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("h5", [
+        _c("i", { staticClass: "far fa-clock mr-1" }),
+        _vm._v(_vm._s(_vm.recipe.cooking_time))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row mt-3" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("div", { staticClass: "card bg-dark text-white" }, [
+            _c("img", {
+              staticClass: "card-img-top shadow-md img-fluid recipe-image",
+              attrs: { src: _vm.recipe.image_source, alt: "Card image cap" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("h4", [_vm._v("Recipe Steps")]),
+          _vm._v(" "),
+          _c(
+            "ol",
+            _vm._l(_vm.recipe.steps, function(step) {
+              return _c("li", { key: step.id }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(step.step) +
+                    "\n                    "
+                )
+              ])
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("h4", [_vm._v("Ingredients")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.recipe.ingredients))])
+        ])
       ])
     ])
   ])
