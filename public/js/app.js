@@ -2781,6 +2781,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     recipe: {
@@ -7356,7 +7363,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-e9899818], .fade-leave-active[data-v-e9899818] {\n    transition: opacity 1s ease-out;\n}\n.fade-enter[data-v-e9899818], .fade-leave-to[data-v-e9899818] {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.save-recipe[data-v-e9899818] {\n    cursor: pointer;\n}\n.save-recipe[data-v-e9899818]:hover{\n    -webkit-transform: scale(1.2);\n}\n.fade-enter-active[data-v-e9899818], .fade-leave-active[data-v-e9899818] {\n    transition: opacity 1s ease-out;\n}\n.fade-enter[data-v-e9899818], .fade-leave-to[data-v-e9899818] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -64071,7 +64078,7 @@ var render = function() {
             "h5",
             {
               staticClass:
-                "card-title bg-white w-50 p-0 border rounded text-center"
+                "card-title bg-secondary text-white w-50 p-0 border border-secondary rounded text-center"
             },
             [
               _c("i", { staticClass: "far fa-clock mr-1" }),
@@ -64081,8 +64088,17 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _c("h4", { staticClass: "card-title" }, [
-            _vm._v(_vm._s(_vm.recipe.name))
+          _c("div", { staticClass: "d-flex justify-content-between" }, [
+            _c("div", [
+              _c("h4", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(_vm.recipe.name))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "save-recipe" }, [
+              _c("i", { staticClass: "fas fa-heart mr-1" }),
+              _vm._v("Save\n                ")
+            ])
           ]),
           _vm._v(" "),
           _vm.recipe.user
@@ -64168,7 +64184,8 @@ var render = function() {
         _c("div", { staticClass: "col-sm-4" }, [
           _c("div", { staticClass: "card bg-dark text-white" }, [
             _c("img", {
-              staticClass: "card-img-top shadow-md img-fluid recipe-image",
+              staticClass:
+                "card-img-top shadow-md img-fluid single-recipe-image",
               attrs: {
                 src: _vm.currentUrlPathName + _vm.recipe.image_source,
                 alt: "Card image cap"

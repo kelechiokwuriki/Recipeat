@@ -4,9 +4,17 @@
 .recipe-image{
     object-fit: cover;
     width: 100%;
-    /* width:500px; */
-    height:250px;
+    height:200px;
 }
+
+.single-recipe-image{
+    object-fit: cover;
+    width: 100%;
+    /* width:500px; */
+    height:400px;
+}
+
+
 footer{
     position: fixed !important;
 }
