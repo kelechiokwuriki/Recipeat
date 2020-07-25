@@ -6,8 +6,9 @@
         <div class="row justify-content-center">
             <div class="col-xl-3 mr-0" v-for="recipe in threemostpopularrecipes"
                 v-bind:key="recipe.id">
-
-                <recipe-component :recipe="recipe"></recipe-component>
+                <!-- <transition name="fade" appear> -->
+                    <recipe-component :recipe="recipe"></recipe-component>
+                <!-- </transition> -->
 
             </div><!-- end col -->
 
