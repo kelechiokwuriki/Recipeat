@@ -63963,11 +63963,11 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "row justify-content-center" },
+      { staticClass: "row" },
       _vm._l(_vm.myrecipes, function(recipe) {
         return _c(
           "div",
-          { key: recipe.id, staticClass: "col-xl-3 mr-0" },
+          { key: recipe.id, staticClass: "col-sm-3" },
           [_c("recipe-component", { attrs: { recipe: recipe } })],
           1
         )
@@ -64059,7 +64059,7 @@ var render = function() {
   return _c("transition", { attrs: { name: "fade", appear: "" } }, [
     _c(
       "div",
-      { staticClass: "card shadow-lg", staticStyle: { width: "20rem" } },
+      { staticClass: "card shadow-lg", staticStyle: { width: "18rem" } },
       [
         _c("img", {
           staticClass: "card-img-top shadow-md img-fluid recipe-image",

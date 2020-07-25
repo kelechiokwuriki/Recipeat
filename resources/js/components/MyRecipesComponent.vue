@@ -3,8 +3,8 @@
         <div class="border-bottom mb-3 p-2">
             <h4>My Recipes</h4>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-3 mr-0" v-for="recipe in myrecipes"
+        <div class="row">
+            <div class="col-sm-3" v-for="recipe in myrecipes"
                 v-bind:key="recipe.id">
                     <recipe-component :recipe="recipe"></recipe-component>
             </div>
