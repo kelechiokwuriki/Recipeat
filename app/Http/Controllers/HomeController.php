@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RecipeResource;
 use App\Services\Recipe\RecipeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -30,11 +31,15 @@ class HomeController extends Controller
     public function index()
     {
         $latestThreeRecipes = $this->recipeService->getLatestThreeCreatedRecipes();
+        $latestResource = RecipeResource::collection($latestThreeRecipes);
+
         $threeMostPopularRecipes = $this->recipeService->getThreeMostPopularRecipes();
+        $popularResource = RecipeResource::collection($threeMostPopularRecipes);
+
 
         return view('home')->with([
-            'latestThreeRecipes' => json_encode($latestThreeRecipes),
-            'threeMostPopularRecipes' => json_encode($threeMostPopularRecipes)
+            'latestThreeRecipes' => json_encode($latestResource),
+            'threeMostPopularRecipes' => json_encode($popularResource)
         ]);
     }
 }

@@ -18,4 +18,9 @@ class Like extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeDidLoggedInUserLikeRecipe($query, $recipeId)
+    {
+        return $query->where('user_id', auth()->id())->where('recipe_id', $recipeId)->exists();
+    }
 }

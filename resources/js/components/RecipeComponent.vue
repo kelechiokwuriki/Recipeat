@@ -14,14 +14,14 @@
                     <div>
                         <h4 class="card-title">{{ recipeData.name }}</h4>
                     </div>
-                    <div class="save-recipe" @click="toggleRecipeLike(recipeData.id)">
-                        <i class="fas fa-heart mr-1"></i>
+                    <div :class="{'save-recipe':recipeData.logged_in_user_liked_recipe}" @click="toggleRecipeLike(recipeData.id)">
+                        <i class="fas fa-heart mr-1" :class="{'text-danger': recipeData.logged_in_user_liked_recipe}"></i>
                         <template v-if="recipeData.likes">
-                            <span v-if="recipeData.likes.length > 0">{{ recipeData.likes.length }}</span>
+                            <span v-if="recipeData.likes > 0">{{ recipeData.likes }}</span>
                         </template>
                     </div>
                 </div>
-                <p class="card-text" v-if="recipeData.user">Recipe by {{ recipeData.user.name }}</p>
+                <p class="card-text" v-if="recipeData.user">Recipe by {{ recipeData.user }}</p>
                 <div class="d-flex justify-content-between">
                     <div>
                         <a :href="'/recipe/' + recipeData.slug" class="btn btn-success waves-effect waves-light">View Recipe</a>
@@ -69,7 +69,10 @@ export default {
         recipe: {
             type: Object
         }
-    }
+    },
+    // computed() {
+    //     userLiked
+    // }
 }
 </script>
 

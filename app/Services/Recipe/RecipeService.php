@@ -24,7 +24,7 @@ class RecipeService
 
     public function getLatestThreeCreatedRecipes()
     {
-        return $this->recipeRepository->getByOrderAndNumber('created_at', 'desc', 3)->with(['user', 'likes'])->get();
+        return $this->recipeRepository->getByOrderAndNumber('created_at', 'desc', 3)->get();
     }
 
     public function getThreeMostPopularRecipes()

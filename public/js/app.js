@@ -2824,7 +2824,10 @@ __webpack_require__.r(__webpack_exports__);
     recipe: {
       type: Object
     }
-  }
+  } // computed() {
+  //     userLiked
+  // }
+
 });
 
 /***/ }),
@@ -64129,7 +64132,9 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "save-recipe",
+                class: {
+                  "save-recipe": _vm.recipeData.logged_in_user_liked_recipe
+                },
                 on: {
                   click: function($event) {
                     return _vm.toggleRecipeLike(_vm.recipeData.id)
@@ -64137,14 +64142,17 @@ var render = function() {
                 }
               },
               [
-                _c("i", { staticClass: "fas fa-heart mr-1" }),
+                _c("i", {
+                  staticClass: "fas fa-heart mr-1",
+                  class: {
+                    "text-danger": _vm.recipeData.logged_in_user_liked_recipe
+                  }
+                }),
                 _vm._v(" "),
                 _vm.recipeData.likes
                   ? [
-                      _vm.recipeData.likes.length > 0
-                        ? _c("span", [
-                            _vm._v(_vm._s(_vm.recipeData.likes.length))
-                          ])
+                      _vm.recipeData.likes > 0
+                        ? _c("span", [_vm._v(_vm._s(_vm.recipeData.likes))])
                         : _vm._e()
                     ]
                   : _vm._e()
@@ -64155,7 +64163,7 @@ var render = function() {
           _vm._v(" "),
           _vm.recipeData.user
             ? _c("p", { staticClass: "card-text" }, [
-                _vm._v("Recipe by " + _vm._s(_vm.recipeData.user.name))
+                _vm._v("Recipe by " + _vm._s(_vm.recipeData.user))
               ])
             : _vm._e(),
           _vm._v(" "),
