@@ -2663,22 +2663,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      recipes: []
-    };
-  },
-  methods: {
-    likeRecipe: function likeRecipe(data) {
-      var recipeIndex = this.latestthreerecipes.findIndex(function (recipe) {
-        return recipe.id === data.recipe_id;
-      });
-      this.recipes[recipeIndex].likes.push(data);
-    }
-  },
-  mounted: function mounted() {
-    this.recipes = this.latestthreerecipes;
-  },
   props: {
     latestthreerecipes: {
       type: Array
@@ -2801,7 +2785,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      recipeData: {}
+    };
+  },
+  mounted: function mounted() {
+    this.recipeData = this.recipe;
+  },
   methods: {
     toggleRecipeLike: function toggleRecipeLike(recipeId) {
       var _this = this;
@@ -2818,7 +2815,7 @@ __webpack_require__.r(__webpack_exports__);
             'updated_at': response.data.updated_at
           };
 
-          _this.$emit('recipe-liked', likedRecipe);
+          _this.recipeData.likes.push(likedRecipe);
         }
       });
     }
@@ -2826,11 +2823,6 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     recipe: {
       type: Object
-    }
-  },
-  computed: {
-    recipeLikes: function recipeLikes() {
-      return this.recipe.likes.length;
     }
   }
 });
@@ -63947,16 +63939,11 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row justify-content-center" },
-      _vm._l(_vm.recipes, function(recipe) {
+      _vm._l(_vm.latestthreerecipes, function(recipe) {
         return _c(
           "div",
           { key: recipe.id, staticClass: "col-xl-3 mr-0" },
-          [
-            _c("recipe-component", {
-              attrs: { recipe: recipe },
-              on: { "recipe-liked": _vm.likeRecipe }
-            })
-          ],
+          [_c("recipe-component", { attrs: { recipe: recipe } })],
           1
         )
       }),
@@ -64114,7 +64101,7 @@ var render = function() {
       [
         _c("img", {
           staticClass: "card-img-top shadow-md img-fluid recipe-image",
-          attrs: { src: _vm.recipe.image_source, alt: "Card image cap" }
+          attrs: { src: _vm.recipeData.image_source, alt: "Card image cap" }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "card-img-overlay h-50" }, [
@@ -64126,7 +64113,7 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "far fa-clock mr-1" }),
-              _vm._v(_vm._s(_vm.recipe.cooking_time))
+              _vm._v(_vm._s(_vm.recipeData.cooking_time) + "\n            ")
             ]
           )
         ]),
@@ -64135,7 +64122,7 @@ var render = function() {
           _c("div", { staticClass: "d-flex justify-content-between" }, [
             _c("div", [
               _c("h4", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(_vm.recipe.name))
+                _vm._v(_vm._s(_vm.recipeData.name))
               ])
             ]),
             _vm._v(" "),
@@ -64145,22 +64132,30 @@ var render = function() {
                 staticClass: "save-recipe",
                 on: {
                   click: function($event) {
-                    return _vm.toggleRecipeLike(_vm.recipe.id)
+                    return _vm.toggleRecipeLike(_vm.recipeData.id)
                   }
                 }
               },
               [
                 _c("i", { staticClass: "fas fa-heart mr-1" }),
-                _vm.recipeLikes > 0
-                  ? _c("span", [_vm._v(_vm._s(_vm.recipeLikes))])
+                _vm._v(" "),
+                _vm.recipeData.likes
+                  ? [
+                      _vm.recipeData.likes.length > 0
+                        ? _c("span", [
+                            _vm._v(_vm._s(_vm.recipeData.likes.length))
+                          ])
+                        : _vm._e()
+                    ]
                   : _vm._e()
-              ]
+              ],
+              2
             )
           ]),
           _vm._v(" "),
-          _vm.recipe.user
+          _vm.recipeData.user
             ? _c("p", { staticClass: "card-text" }, [
-                _vm._v("Recipe by " + _vm._s(_vm.recipe.user.name))
+                _vm._v("Recipe by " + _vm._s(_vm.recipeData.user.name))
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -64170,7 +64165,7 @@ var render = function() {
                 "a",
                 {
                   staticClass: "btn btn-success waves-effect waves-light",
-                  attrs: { href: "/recipe/" + _vm.recipe.slug }
+                  attrs: { href: "/recipe/" + _vm.recipeData.slug }
                 },
                 [_vm._v("View Recipe")]
               )
@@ -64179,7 +64174,7 @@ var render = function() {
             _c("div", [
               _c("p", { staticClass: "card-text" }, [
                 _c("small", { staticClass: "text-muted" }, [
-                  _vm._v(_vm._s(_vm.recipe.view_count) + " views")
+                  _vm._v(_vm._s(_vm.recipeData.view_count) + " views")
                 ])
               ])
             ])

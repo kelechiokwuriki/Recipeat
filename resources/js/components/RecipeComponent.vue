@@ -1,29 +1,34 @@
 <template>
     <transition name="fade" appear>
         <div class="card shadow-lg" style="width: 18rem;">
-            <img class="card-img-top shadow-md img-fluid recipe-image" :src="recipe.image_source" alt="Card image cap">
+            <img class="card-img-top shadow-md img-fluid recipe-image" :src="recipeData.image_source" alt="Card image cap">
             <div class="card-img-overlay h-50">
-                <h5 class="card-title bg-secondary text-white w-50 p-0 border border-secondary rounded text-center"><i class="far fa-clock mr-1"></i>{{ recipe.cooking_time }}</h5>
+                <h5 class="card-title bg-secondary text-white w-50 p-0 border border-secondary rounded text-center">
+                    <i class="far fa-clock mr-1"></i>{{ recipeData.cooking_time }}
+                </h5>
                 <!-- <a href="#" class="btn width-xs btn-success">View</a> -->
 
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h4 class="card-title">{{ recipe.name }}</h4>
+                        <h4 class="card-title">{{ recipeData.name }}</h4>
                     </div>
-                    <div class="save-recipe" @click="toggleRecipeLike(recipe.id)">
-                        <i class="fas fa-heart mr-1"></i><span v-if="recipeLikes > 0">{{ recipeLikes }}</span>
+                    <div class="save-recipe" @click="toggleRecipeLike(recipeData.id)">
+                        <i class="fas fa-heart mr-1"></i>
+                        <template v-if="recipeData.likes">
+                            <span v-if="recipeData.likes.length > 0">{{ recipeData.likes.length }}</span>
+                        </template>
                     </div>
                 </div>
-                <p class="card-text" v-if="recipe.user">Recipe by {{ recipe.user.name }}</p>
+                <p class="card-text" v-if="recipeData.user">Recipe by {{ recipeData.user.name }}</p>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <a :href="'/recipe/' + recipe.slug" class="btn btn-success waves-effect waves-light">View Recipe</a>
+                        <a :href="'/recipe/' + recipeData.slug" class="btn btn-success waves-effect waves-light">View Recipe</a>
                     </div>
                     <div>
                         <p class="card-text">
-                            <small class="text-muted">{{ recipe.view_count }} views</small>
+                            <small class="text-muted">{{ recipeData.view_count }} views</small>
                         </p>
                     </div>
                 </div>
@@ -34,12 +39,20 @@
 
 <script>
 export default {
+    data() {
+        return {
+            recipeData: {}
+        }
+    },
+    mounted() {
+        this.recipeData = this.recipe;
+    },
     methods: {
         toggleRecipeLike(recipeId) {
             axios.post('/api/like', {'recipe_id': recipeId}).then(response => {
                 if(response.status === 201) {
 
-                    let likedRecipe = {
+                      let likedRecipe = {
                         'recipe_id': response.data.recipe_id,
                         'user_id': response.data.user_id,
                         'created_at': response.data.created_at,
@@ -47,7 +60,7 @@ export default {
                         'updated_at': response.data.updated_at
                     };
 
-                    this.$emit('recipe-liked', likedRecipe);
+                    this.recipeData.likes.push(likedRecipe);
                 }
             })
         }
@@ -55,11 +68,6 @@ export default {
     props: {
         recipe: {
             type: Object
-        }
-    },
-    computed: {
-        recipeLikes() {
-            return this.recipe.likes.length;
         }
     }
 }

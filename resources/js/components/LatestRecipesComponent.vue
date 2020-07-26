@@ -11,8 +11,8 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-xl-3 mr-0" v-for="recipe in recipes" v-bind:key="recipe.id">
-                <recipe-component :recipe="recipe" v-on:recipe-liked="likeRecipe"></recipe-component>
+            <div class="col-xl-3 mr-0" v-for="recipe in latestthreerecipes" v-bind:key="recipe.id">
+                <recipe-component :recipe="recipe"></recipe-component>
             </div>
         </div>
     </div>
@@ -20,20 +20,6 @@
 
 <script>
     export default {
-        data() {
-            return {
-                recipes: []
-            }
-        },
-        methods: {
-            likeRecipe(data) {
-                let recipeIndex = this.latestthreerecipes.findIndex(recipe => recipe.id === data.recipe_id);
-                this.recipes[recipeIndex].likes.push(data);
-            }
-        },
-        mounted() {
-            this.recipes = this.latestthreerecipes;
-        },
         props:{
             latestthreerecipes:{
                 type: Array
