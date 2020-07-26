@@ -2663,8 +2663,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      recipes: []
+    };
+  },
+  methods: {
+    likeRecipe: function likeRecipe(data) {
+      var recipeIndex = this.latestthreerecipes.findIndex(function (recipe) {
+        return recipe.id === data.recipe_id;
+      });
+      this.recipes[recipeIndex].likes.push(data);
+    }
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.recipes = this.latestthreerecipes;
   },
   props: {
     latestthreerecipes: {
@@ -2789,9 +2802,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    toggleRecipeLike: function toggleRecipeLike(recipeId) {
+      var _this = this;
+
+      axios.post('/api/like', {
+        'recipe_id': recipeId
+      }).then(function (response) {
+        if (response.status === 201) {
+          var likedRecipe = {
+            'recipe_id': response.data.recipe_id,
+            'user_id': response.data.user_id,
+            'created_at': response.data.created_at,
+            'id': response.data.id,
+            'updated_at': response.data.updated_at
+          };
+
+          _this.$emit('recipe-liked', likedRecipe);
+        }
+      });
+    }
+  },
   props: {
     recipe: {
       type: Object
+    }
+  },
+  computed: {
+    recipeLikes: function recipeLikes() {
+      return this.recipe.likes.length;
     }
   }
 });
@@ -63908,11 +63947,16 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row justify-content-center" },
-      _vm._l(_vm.latestthreerecipes, function(recipe) {
+      _vm._l(_vm.recipes, function(recipe) {
         return _c(
           "div",
           { key: recipe.id, staticClass: "col-xl-3 mr-0" },
-          [_c("recipe-component", { attrs: { recipe: recipe } })],
+          [
+            _c("recipe-component", {
+              attrs: { recipe: recipe },
+              on: { "recipe-liked": _vm.likeRecipe }
+            })
+          ],
           1
         )
       }),
@@ -64095,10 +64139,23 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "save-recipe" }, [
-              _c("i", { staticClass: "fas fa-heart mr-1" }),
-              _vm._v("Save\n                ")
-            ])
+            _c(
+              "div",
+              {
+                staticClass: "save-recipe",
+                on: {
+                  click: function($event) {
+                    return _vm.toggleRecipeLike(_vm.recipe.id)
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "fas fa-heart mr-1" }),
+                _vm.recipeLikes > 0
+                  ? _c("span", [_vm._v(_vm._s(_vm.recipeLikes))])
+                  : _vm._e()
+              ]
+            )
           ]),
           _vm._v(" "),
           _vm.recipe.user

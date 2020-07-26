@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasMany(Recipe::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function getApiTokenAttribute($value)
     {
         if(!$value) {

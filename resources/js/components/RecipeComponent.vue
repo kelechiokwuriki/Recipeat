@@ -12,8 +12,8 @@
                     <div>
                         <h4 class="card-title">{{ recipe.name }}</h4>
                     </div>
-                    <div class="save-recipe">
-                        <i class="fas fa-heart mr-1"></i>Save
+                    <div class="save-recipe" @click="toggleRecipeLike(recipe.id)">
+                        <i class="fas fa-heart mr-1"></i><span v-if="recipeLikes > 0">{{ recipeLikes }}</span>
                     </div>
                 </div>
                 <p class="card-text" v-if="recipe.user">Recipe by {{ recipe.user.name }}</p>
@@ -34,9 +34,32 @@
 
 <script>
 export default {
+    methods: {
+        toggleRecipeLike(recipeId) {
+            axios.post('/api/like', {'recipe_id': recipeId}).then(response => {
+                if(response.status === 201) {
+
+                    let likedRecipe = {
+                        'recipe_id': response.data.recipe_id,
+                        'user_id': response.data.user_id,
+                        'created_at': response.data.created_at,
+                        'id': response.data.id,
+                        'updated_at': response.data.updated_at
+                    };
+
+                    this.$emit('recipe-liked', likedRecipe);
+                }
+            })
+        }
+    },
     props: {
         recipe: {
             type: Object
+        }
+    },
+    computed: {
+        recipeLikes() {
+            return this.recipe.likes.length;
         }
     }
 }

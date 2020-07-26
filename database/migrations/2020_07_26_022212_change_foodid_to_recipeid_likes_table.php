@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSavedRecipesTable extends Migration
+class ChangeFoodidToRecipeidLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateSavedRecipesTable extends Migration
      */
     public function up()
     {
-        Schema::create('saved_recipes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('likes', function (Blueprint $table) {
+            $table->renameColumn('food_id', 'recipe_id');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateSavedRecipesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saved_recipes');
+        Schema::table('likes', function (Blueprint $table) {
+            //
+        });
     }
 }

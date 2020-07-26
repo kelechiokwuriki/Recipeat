@@ -24,22 +24,22 @@ class RecipeService
 
     public function getLatestThreeCreatedRecipes()
     {
-        return $this->recipeRepository->getByOrderAndNumber('created_at', 'desc', 3)->with('user')->get();
+        return $this->recipeRepository->getByOrderAndNumber('created_at', 'desc', 3)->with(['user', 'likes'])->get();
     }
 
     public function getThreeMostPopularRecipes()
     {
-        return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with('user')->get();
+        return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with(['user', 'likes'])->get();
     }
 
     public function getRecipeBySlug(string $slug)
     {
-        return $this->recipeRepository->where('slug', $slug)->with(['steps', 'user'])->first();
+        return $this->recipeRepository->where('slug', $slug)->with(['steps', 'user', 'likes'])->first();
     }
 
     public function getRecipesForUser(int $userId)
     {
-        return $this->recipeRepository->where('user_id', $userId)->with('steps')->get();
+        return $this->recipeRepository->where('user_id', $userId)->with(['steps', 'likes'])->get();
     }
 
     public function createRecipe(array $recipe)
