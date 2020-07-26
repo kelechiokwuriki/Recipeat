@@ -64219,9 +64219,7 @@ var render = function() {
       _c("div", { staticClass: "d-flex justify-content-between" }, [
         _c("div", [
           _c("h4", { staticClass: "header-title text-capitalize" }, [
-            _vm._v(
-              _vm._s(_vm.recipe.name) + " by " + _vm._s(_vm.recipe.user.name)
-            )
+            _vm._v(_vm._s(_vm.recipe.name) + " by " + _vm._s(_vm.recipe.user))
           ]),
           _vm._v(" "),
           _c("h5", { staticClass: "text-success" }, [

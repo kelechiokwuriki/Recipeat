@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RecipeResource;
 use App\Services\Recipe\RecipeService;
 use Illuminate\Http\Request;
 
@@ -52,10 +53,9 @@ class RecipeController extends Controller
      */
     public function show($slug)
     {
-        $recipe = $this->recipeService->getRecipeBySlug($slug);
+        $recipe = new RecipeResource($this->recipeService->getRecipeBySlug($slug));
 
-        return view('recipe.show')->with(['recipe' => $recipe]);
-
+        return view('recipe.show')->with(['recipe' => json_encode($recipe)]);
     }
 
     /**

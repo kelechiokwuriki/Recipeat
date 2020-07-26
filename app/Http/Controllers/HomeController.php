@@ -30,16 +30,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latestThreeRecipes = $this->recipeService->getLatestThreeCreatedRecipes();
-        $latestResource = RecipeResource::collection($latestThreeRecipes);
+        $latestThreeRecipes = RecipeResource::collection($this->recipeService->getLatestThreeCreatedRecipes());
 
-        $threeMostPopularRecipes = $this->recipeService->getThreeMostPopularRecipes();
-        $popularResource = RecipeResource::collection($threeMostPopularRecipes);
+        $threeMostPopularRecipes = RecipeResource::collection($this->recipeService->getThreeMostPopularRecipes());
 
 
         return view('home')->with([
-            'latestThreeRecipes' => json_encode($latestResource),
-            'threeMostPopularRecipes' => json_encode($popularResource)
+            'latestThreeRecipes' => json_encode($latestThreeRecipes),
+            'threeMostPopularRecipes' => json_encode($threeMostPopularRecipes)
         ]);
     }
 }

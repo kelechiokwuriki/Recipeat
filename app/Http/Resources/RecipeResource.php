@@ -24,7 +24,8 @@ class RecipeResource extends JsonResource
             'user' => $this->user->name,
             'likes' => count($this->likes),
             'logged_in_user_liked_recipe' => $this->likes()->didLoggedInUserLikeRecipe($this->id),
-            'slug' => $this->slug
+            'slug' => $this->slug,
+            'steps' => $this->steps
         ];
     }
 }

@@ -3,7 +3,7 @@
         <div class="card-box">
             <div class="d-flex justify-content-between">
                 <div>
-                    <h4 class="header-title text-capitalize">{{ recipe.name }} by {{ recipe.user.name }}</h4>
+                    <h4 class="header-title text-capitalize">{{ recipe.name }} by {{ recipe.user }}</h4>
                     <h5 class="text-success"><i class="far fa-clock mr-1 "></i>{{ recipe.cooking_time }}</h5>
 
                 </div>
