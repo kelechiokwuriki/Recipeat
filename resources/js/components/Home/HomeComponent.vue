@@ -35,15 +35,13 @@ export default {
         latestThreeRecipesToShow() {
             return this.latestThreeRecipes.filter(recipe => {
                 return recipe.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                    recipe.user.toLowerCase().includes(this.searchTerm.toLowerCase())
-                ;
+                    recipe.user.toLowerCase().includes(this.searchTerm.toLowerCase());
             })
         },
         threeMostPopularRecipesToShow() {
             return this.threeMostPopularRecipes.filter(recipe => {
                 return recipe.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                    recipe.user.toLowerCase().includes(this.searchTerm.toLowerCase())
-                ;
+                    recipe.user.toLowerCase().includes(this.searchTerm.toLowerCase());
             })
         }
     }

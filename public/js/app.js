@@ -2789,9 +2789,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      searchTerm: '',
+      recipes: []
+    };
+  },
   props: {
     myrecipes: {
       type: Array
+    }
+  },
+  created: function created() {
+    this.recipes = this.myrecipes;
+    window.eventBus.$on('searchEvent', this.handleSearchEvent);
+  },
+  methods: {
+    handleSearchEvent: function handleSearchEvent(value) {
+      this.searchTerm = value;
+    }
+  },
+  computed: {
+    recipesToShow: function recipesToShow() {
+      var _this = this;
+
+      return this.recipes.filter(function (recipe) {
+        return recipe.name.toLowerCase().includes(_this.searchTerm.toLowerCase()) || recipe.user.toLowerCase().includes(_this.searchTerm.toLowerCase());
+      });
     }
   }
 });
@@ -64232,7 +64256,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(_vm.myrecipes, function(recipe) {
+      _vm._l(_vm.recipesToShow, function(recipe) {
         return _c(
           "div",
           { key: recipe.id, staticClass: "col-sm-3" },

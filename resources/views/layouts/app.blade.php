@@ -263,7 +263,7 @@
                             </li>
                         </ul>
 
-                        <ul class="metismenu" id="side-menu">
+                        {{-- <ul class="metismenu" id="side-menu">
 
                             <li class="menu-title">Information</li>
 
@@ -274,7 +274,7 @@
                                 </a>
                             </li>
 
-                        </ul>
+                        </ul> --}}
 
                     </div>
                     <!-- End Sidebar -->
