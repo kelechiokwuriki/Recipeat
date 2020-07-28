@@ -28,7 +28,11 @@
                 </div>
                 <div class="col-sm-4">
                     <h4>Ingredients</h4>
-                    <p>{{ recipe.ingredients }}</p>
+                     <ul>
+                        <li v-for="ingredient in recipe.ingredients" v-bind:key="ingredient.id">
+                            {{ ingredient }}
+                        </li>
+                    </ul>
                 </div>
             </div>
 

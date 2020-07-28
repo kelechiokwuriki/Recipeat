@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Step;
 use App\Like;
 use App\SavedRecipe;
+use App\Ingredient;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Recipe extends Model
@@ -22,7 +23,7 @@ class Recipe extends Model
         return $this->belongsToMany(Step::class, 'recipe_step', 'recipe_id', 'step_id');
     }
 
-    public function ingredients()
+    public function recipeIngredients()
     {
         return $this->belongsToMany(Ingredient::class, 'ingredient_recipe', 'recipe_id', 'ingredient_id');
     }

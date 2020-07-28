@@ -17,7 +17,7 @@ class RecipeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'ingredients' => $this->ingredients,
+            'ingredients' => $this->recipeIngredients()->get()->pluck('name'),
             'view_count' => $this->view_count,
             'cooking_time' => $this->cooking_time,
             'image_source' => $this->image_source,

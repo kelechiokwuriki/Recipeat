@@ -13,4 +13,9 @@ class Ingredient extends Model
     {
         return $this->belongsToMany(Recipe::class, 'ingredient_recipe', 'ingredient_id', 'recipe_id');
     }
+
+    // public function scopeGetIngredientName($query)
+    // {
+    //     return $
+    // }
 }

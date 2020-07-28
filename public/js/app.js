@@ -2991,6 +2991,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -64574,7 +64578,19 @@ var render = function() {
         _c("div", { staticClass: "col-sm-4" }, [
           _c("h4", [_vm._v("Ingredients")]),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.recipe.ingredients))])
+          _c(
+            "ul",
+            _vm._l(_vm.recipe.ingredients, function(ingredient) {
+              return _c("li", { key: ingredient.id }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(ingredient) +
+                    "\n                    "
+                )
+              ])
+            }),
+            0
+          )
         ])
       ])
     ])

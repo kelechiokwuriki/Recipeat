@@ -118,7 +118,7 @@ class RecipeService
             ])->id;
         }
 
-        return $recipe->ingredients()->sync($ingredientIds);
+        return $recipe->recipeIngredients()->sync($ingredientIds);
     }
 
     private function transformRecipeData(string $recipeName, string $ingredients, string $cookingTime)
