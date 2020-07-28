@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Recipe;
 use App\User;
 
-class Like extends Model
+
+class SavedRecipe extends Model
 {
     protected $guarded = [];
 
@@ -19,12 +21,12 @@ class Like extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeDidLoggedInUserLikeRecipe($query, $recipeId)
+    public function scopeDidLoggedInUserSaveRecipe($query, $recipeId)
     {
         return $query->where('user_id', auth()->id())->where('recipe_id', $recipeId)->exists();
     }
 
-    public function scopeGetLikedRecipeIdForRecipe($query, $recipeId)
+    public function scopeGetSavedRecipeIdForRecipe($query, $recipeId)
     {
         return $query->where('recipe_id', $recipeId)->first()->id ?? 'null';
     }

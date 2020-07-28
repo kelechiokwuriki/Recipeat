@@ -14,22 +14,27 @@
                     <div>
                         <h4 class="card-title">{{ recipeData.name }}</h4>
                     </div>
-                    <div :class="{'save-recipe':recipeData.logged_in_user_liked_recipe}" @click="toggleRecipeLike(recipeData.id)">
-                        <i class="fas fa-heart mr-1" :class="{'text-danger': recipeData.logged_in_user_liked_recipe}"></i>
-                        <template v-if="recipeData.likes">
-                            <span v-if="recipeData.likes > 0">{{ recipeData.likes }}</span>
-                        </template>
+                    <div class="save-recipe" @click="toggleSaveRecipe(recipeData.id, recipeData.saved_recipe_id)">
+                        <i class="mdi mdi-content-save" :class="{'text-success': recipeData.logged_in_user_saved_recipe}"></i>
+                        <span v-if="recipeData.logged_in_user_saved_recipe">Saved</span>
+                        <span v-else>Save</span>
                     </div>
                 </div>
                 <p class="card-text" v-if="recipeData.user">Recipe by {{ recipeData.user }}</p>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <a :href="'/recipe/' + recipeData.slug" class="btn btn-success waves-effect waves-light">View Recipe</a>
+                        <a :href="'/recipe/' + recipeData.slug" class="btn btn-success waves-effect waves-light">View</a>
                     </div>
                     <div>
                         <p class="card-text">
                             <small class="text-muted">{{ recipeData.view_count }} views</small>
                         </p>
+                    </div>
+                    <div class="like-recipe" @click="toggleRecipeLike(recipeData.id, recipeData.liked_recipe_id)">
+                        <i class="fas fa-heart mr-1" :class="{'text-danger': recipeData.logged_in_user_liked_recipe}"></i>
+                        <template v-if="recipeData.likes">
+                            <span v-if="recipeData.likes > 0">{{ recipeData.likes }}</span>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -48,21 +53,50 @@ export default {
         this.recipeData = this.recipe;
     },
     methods: {
-        toggleRecipeLike(recipeId) {
-            axios.post('/api/like', {'recipe_id': recipeId}).then(response => {
+        saveRecipe(recipeId) {
+            axios.post('/api/save-recipe', {'recipe_id': recipeId}).then(response => {
                 if(response.status === 201) {
-
-                      let likedRecipe = {
-                        'recipe_id': response.data.recipe_id,
-                        'user_id': response.data.user_id,
-                        'created_at': response.data.created_at,
-                        'id': response.data.id,
-                        'updated_at': response.data.updated_at
-                    };
-
-                    this.recipeData.likes.push(likedRecipe);
+                    this.recipeData.logged_in_user_saved_recipe = true;
+                    this.recipeData.saved_recipe_id = response.data.id;
                 }
             })
+        },
+        unSaveRecipe(savedRecipeId) {
+            axios.delete('/api/save-recipe/' + savedRecipeId).then(response => {
+                if(response.data === 1) {
+                    this.recipeData.logged_in_user_saved_recipe = false;
+                }
+            })
+        },
+        toggleSaveRecipe(recipeId, savedRecipeId) {
+            if(this.recipeData.logged_in_user_saved_recipe) {
+                return this.unSaveRecipe(savedRecipeId);
+            }
+            return this.saveRecipe(recipeId);
+        },
+        unLikeRecipe(likedRecipeId) {
+            axios.delete('/api/like/' + likedRecipeId).then(response => {
+                console.log(response);
+                if(response.data === 1) {
+                    this.recipeData.likes--;
+                    this.recipeData.logged_in_user_saved_recipe = false;
+                }
+            })
+        },
+        likeRecipe(recipeId){
+            axios.post('/api/like', {'recipe_id': recipeId}).then(response => {
+                if(response.status === 201) {
+                    this.recipeData.likes++;
+                    this.recipeData.logged_in_user_liked_recipe = true;
+                    this.recipeData.liked_recipe_id = response.data.id;
+                }
+            })
+        },
+        toggleRecipeLike(recipeId, liked_recipe_id) {
+            if(this.recipeData.logged_in_user_liked_recipe) {
+                return this.unLikeRecipe(recipeId);
+            }
+            return this.likeRecipe(recipeId);
         }
     },
     props: {
@@ -77,11 +111,11 @@ export default {
 </script>
 
 <style scoped>
-    .save-recipe {
+    .like-recipe, .save-recipe {
         cursor: pointer;
     }
 
-    .save-recipe:hover{
+    .like-recipe:hover, .save-recipe:hover{
         -webkit-transform: scale(1.2);
 
     }

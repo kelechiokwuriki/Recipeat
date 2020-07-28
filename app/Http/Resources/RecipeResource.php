@@ -23,7 +23,10 @@ class RecipeResource extends JsonResource
             'image_source' => $this->image_source,
             'user' => $this->user->name,
             'likes' => count($this->likes),
+            'saved_recipe_id' => $this->savedRecipeId()->getSavedRecipeIdForRecipe($this->id),
+            'liked_recipe_id' => $this->likes()->getLikedRecipeIdForRecipe($this->id),
             'logged_in_user_liked_recipe' => $this->likes()->didLoggedInUserLikeRecipe($this->id),
+            'logged_in_user_saved_recipe' => $this->savedRecipe()->didLoggedInUserSaveRecipe($this->id),
             'slug' => $this->slug,
             'steps' => $this->steps
         ];

@@ -3,8 +3,11 @@
 namespace App\Services\Recipe;
 
 use App\Recipe;
+use App\Repositories\Like\LikeRepository;
 use App\Repositories\Recipe\RecipeRepository;
+use App\Repositories\SavedRecipe\SavedRecipeRepository;
 use App\Repositories\Step\StepRepository;
+use App\Services\Like\LikeService;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Collection;
@@ -15,12 +18,18 @@ class RecipeService
 {
     protected $recipeRepository;
     protected $stepRepository;
+    protected $savedRecipeRepository;
+    protected $likeRepository;
 
-    public function __construct(RecipeRepository $recipeRepository, StepRepository $stepRepository)
+    public function __construct(RecipeRepository $recipeRepository,
+    StepRepository $stepRepository, SavedRecipeRepository $savedRecipeRepository, LikeRepository $likeRepository)
     {
         $this->recipeRepository = $recipeRepository;
         $this->stepRepository = $stepRepository;
+        $this->savedRecipeRepository = $savedRecipeRepository;
+        $this->likeRepository = $likeRepository;
     }
+
 
     public function getLatestThreeCreatedRecipes()
     {
@@ -30,6 +39,26 @@ class RecipeService
     public function getThreeMostPopularRecipes()
     {
         return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with(['user', 'likes'])->get();
+    }
+
+    public function createSavedRecipe(array $savedRecipe)
+    {
+        return $this->savedRecipeRepository->create($savedRecipe);
+    }
+
+    public function deleteSavedRecipe(int $savedRecipeId)
+    {
+        return $this->savedRecipeRepository->delete($savedRecipeId);
+    }
+
+    public function likeRecipe(array $like)
+    {
+        return $this->likeRepository->create($like);
+    }
+
+    public function unlikeRecipe(int $recipeId)
+    {
+        return $this->likeRepository->delete($recipeId);
     }
 
     public function getRecipeBySlug(string $slug)

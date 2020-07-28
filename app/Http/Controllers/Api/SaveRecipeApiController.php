@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Services\Like\LikeService;
 use App\Services\Recipe\RecipeService;
 use Illuminate\Http\Request;
 
-class LikeApiController extends Controller
+class SaveRecipeApiController extends Controller
 {
     protected $recipeService;
 
@@ -45,7 +44,7 @@ class LikeApiController extends Controller
     {
         $request->request->set('user_id', auth()->id());
 
-        return $this->recipeService->likeRecipe($request->all());
+        return $this->recipeService->createSavedRecipe($request->all());
     }
 
     /**
@@ -90,6 +89,6 @@ class LikeApiController extends Controller
      */
     public function destroy($id)
     {
-        return $this->recipeService->unlikeRecipe($id);
+        return $this->recipeService->deleteSavedRecipe($id);
     }
 }

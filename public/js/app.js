@@ -2790,6 +2790,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2800,24 +2805,65 @@ __webpack_require__.r(__webpack_exports__);
     this.recipeData = this.recipe;
   },
   methods: {
-    toggleRecipeLike: function toggleRecipeLike(recipeId) {
+    saveRecipe: function saveRecipe(recipeId) {
       var _this = this;
+
+      axios.post('/api/save-recipe', {
+        'recipe_id': recipeId
+      }).then(function (response) {
+        if (response.status === 201) {
+          _this.recipeData.logged_in_user_saved_recipe = true;
+          _this.recipeData.saved_recipe_id = response.data.id;
+        }
+      });
+    },
+    unSaveRecipe: function unSaveRecipe(savedRecipeId) {
+      var _this2 = this;
+
+      axios["delete"]('/api/save-recipe/' + savedRecipeId).then(function (response) {
+        if (response.data === 1) {
+          _this2.recipeData.logged_in_user_saved_recipe = false;
+        }
+      });
+    },
+    toggleSaveRecipe: function toggleSaveRecipe(recipeId, savedRecipeId) {
+      if (this.recipeData.logged_in_user_saved_recipe) {
+        return this.unSaveRecipe(savedRecipeId);
+      }
+
+      return this.saveRecipe(recipeId);
+    },
+    unLikeRecipe: function unLikeRecipe(likedRecipeId) {
+      var _this3 = this;
+
+      axios["delete"]('/api/like/' + likedRecipeId).then(function (response) {
+        console.log(response);
+
+        if (response.data === 1) {
+          _this3.recipeData.likes--;
+          _this3.recipeData.logged_in_user_saved_recipe = false;
+        }
+      });
+    },
+    likeRecipe: function likeRecipe(recipeId) {
+      var _this4 = this;
 
       axios.post('/api/like', {
         'recipe_id': recipeId
       }).then(function (response) {
         if (response.status === 201) {
-          var likedRecipe = {
-            'recipe_id': response.data.recipe_id,
-            'user_id': response.data.user_id,
-            'created_at': response.data.created_at,
-            'id': response.data.id,
-            'updated_at': response.data.updated_at
-          };
-
-          _this.recipeData.likes.push(likedRecipe);
+          _this4.recipeData.likes++;
+          _this4.recipeData.logged_in_user_liked_recipe = true;
+          _this4.recipeData.liked_recipe_id = response.data.id;
         }
       });
+    },
+    toggleRecipeLike: function toggleRecipeLike(recipeId, liked_recipe_id) {
+      if (this.recipeData.logged_in_user_liked_recipe) {
+        return this.unLikeRecipe(recipeId);
+      }
+
+      return this.likeRecipe(recipeId);
     }
   },
   props: {
@@ -7397,7 +7443,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.save-recipe[data-v-e9899818] {\n    cursor: pointer;\n}\n.save-recipe[data-v-e9899818]:hover{\n    -webkit-transform: scale(1.2);\n}\n.fade-enter-active[data-v-e9899818], .fade-leave-active[data-v-e9899818] {\n    transition: opacity 1s ease-out;\n}\n.fade-enter[data-v-e9899818], .fade-leave-to[data-v-e9899818] {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.like-recipe[data-v-e9899818], .save-recipe[data-v-e9899818] {\n    cursor: pointer;\n}\n.like-recipe[data-v-e9899818]:hover, .save-recipe[data-v-e9899818]:hover{\n    -webkit-transform: scale(1.2);\n}\n.fade-enter-active[data-v-e9899818], .fade-leave-active[data-v-e9899818] {\n    transition: opacity 1s ease-out;\n}\n.fade-enter[data-v-e9899818], .fade-leave-to[data-v-e9899818] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -64132,12 +64178,67 @@ var render = function() {
             _c(
               "div",
               {
-                class: {
-                  "save-recipe": _vm.recipeData.logged_in_user_liked_recipe
-                },
+                staticClass: "save-recipe",
                 on: {
                   click: function($event) {
-                    return _vm.toggleRecipeLike(_vm.recipeData.id)
+                    return _vm.toggleSaveRecipe(
+                      _vm.recipeData.id,
+                      _vm.recipeData.saved_recipe_id
+                    )
+                  }
+                }
+              },
+              [
+                _c("i", {
+                  staticClass: "mdi mdi-content-save",
+                  class: {
+                    "text-success": _vm.recipeData.logged_in_user_saved_recipe
+                  }
+                }),
+                _vm._v(" "),
+                _vm.recipeData.logged_in_user_saved_recipe
+                  ? _c("span", [_vm._v("Saved")])
+                  : _c("span", [_vm._v("Save")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.recipeData.user
+            ? _c("p", { staticClass: "card-text" }, [
+                _vm._v("Recipe by " + _vm._s(_vm.recipeData.user))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex justify-content-between" }, [
+            _c("div", [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-success waves-effect waves-light",
+                  attrs: { href: "/recipe/" + _vm.recipeData.slug }
+                },
+                [_vm._v("View")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("p", { staticClass: "card-text" }, [
+                _c("small", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.recipeData.view_count) + " views")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "like-recipe",
+                on: {
+                  click: function($event) {
+                    return _vm.toggleRecipeLike(
+                      _vm.recipeData.id,
+                      _vm.recipeData.liked_recipe_id
+                    )
                   }
                 }
               },
@@ -64159,33 +64260,6 @@ var render = function() {
               ],
               2
             )
-          ]),
-          _vm._v(" "),
-          _vm.recipeData.user
-            ? _c("p", { staticClass: "card-text" }, [
-                _vm._v("Recipe by " + _vm._s(_vm.recipeData.user))
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-flex justify-content-between" }, [
-            _c("div", [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-success waves-effect waves-light",
-                  attrs: { href: "/recipe/" + _vm.recipeData.slug }
-                },
-                [_vm._v("View Recipe")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("p", { staticClass: "card-text" }, [
-                _c("small", { staticClass: "text-muted" }, [
-                  _vm._v(_vm._s(_vm.recipeData.view_count) + " views")
-                ])
-              ])
-            ])
           ])
         ])
       ]

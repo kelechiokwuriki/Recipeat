@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Step;
 use App\Like;
+use App\SavedRecipe;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Recipe extends Model
 {
@@ -23,5 +25,15 @@ class Recipe extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function savedRecipe()
+    {
+        return $this->hasMany(SavedRecipe::class);
+    }
+
+    public function savedRecipeId()
+    {
+        return $this->HasOne(SavedRecipe::class);
     }
 }

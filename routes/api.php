@@ -22,4 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('recipe', 'Api\RecipeApiController');
     Route::resource('like', 'Api\LikeApiController');
+    Route::resource('save-recipe', 'Api\SaveRecipeApiController');
 });

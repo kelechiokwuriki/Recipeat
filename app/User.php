@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 
+use App\SavedRecipe;
+
 
 class User extends Authenticatable
 {
@@ -48,6 +50,11 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function savedRecipe()
+    {
+        return $this->hasMany(SavedRecipe::class);
     }
 
     public function getApiTokenAttribute($value)
