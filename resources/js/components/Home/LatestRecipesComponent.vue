@@ -20,8 +20,8 @@
 
 <script>
     export default {
-        props:{
-            latestthreerecipes:{
+        props: {
+            latestthreerecipes: {
                 type: Array
             }
         }

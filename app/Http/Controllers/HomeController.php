@@ -34,10 +34,13 @@ class HomeController extends Controller
 
         $threeMostPopularRecipes = RecipeResource::collection($this->recipeService->getThreeMostPopularRecipes());
 
+        $recipes = [
+            'latestThreeRecipes' => $latestThreeRecipes,
+            'threeMostPopularRecipes' => $threeMostPopularRecipes
+        ];
 
         return view('home')->with([
-            'latestThreeRecipes' => json_encode($latestThreeRecipes),
-            'threeMostPopularRecipes' => json_encode($threeMostPopularRecipes)
+            'recipes' => json_encode($recipes),
         ]);
     }
 }

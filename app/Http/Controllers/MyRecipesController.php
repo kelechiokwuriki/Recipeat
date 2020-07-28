@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RecipeResource;
 use App\Services\Recipe\RecipeService;
 use Illuminate\Http\Request;
 
@@ -20,9 +21,10 @@ class MyRecipesController extends Controller
      */
     public function index()
     {
-        $recipes = $this->recipeService->getRecipesForUser(auth()->id());
+        $recipes = RecipeResource::collection($this->recipeService->getRecipesForUser(auth()->id()));
 
-        return view('recipe.myrecipes')->with(['recipes' => $recipes]);
+
+        return view('recipe.myrecipes')->with(['recipes' => json_encode($recipes)]);
     }
 
     /**

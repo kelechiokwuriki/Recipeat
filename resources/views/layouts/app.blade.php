@@ -33,7 +33,7 @@
 
                 @if(Auth::check())
                     <li class="d-none d-sm-block">
-                        {{-- <Search></Search> --}}
+                        <search-component></search-component>
                     </li>
                 @endif
 
@@ -251,7 +251,7 @@
                             </li>
                             <li>
                                 <a href="/saved-recipes" class="navigation-item {{ (request()->is('what-can-i-cook')) ? 'active' : '' }}">
-                                    <i class="fas fa-heart text-danger"></i>
+                                    <i class="mdi mdi-content-save"></i>
                                     <span> Saved recipes </span>
                                 </a>
                             </li>
