@@ -1,4 +1,6 @@
 <template>
+    <transition name="fade" appear>
+
     <div class="container mt-3">
         <div class="card-box">
             <h4 class="mt-0 mb-3 header-title">Add your favourite recipe</h4>
@@ -83,6 +85,7 @@
             </form>
         </div>
     </div>
+    </transition>
 </template>
 
 <script>
@@ -177,5 +180,11 @@
     }
 </script>
 
-<style>
+<style scoped>
+   .fade-enter-active, .fade-leave-active {
+        transition: opacity 1s ease-out;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
 </style>

@@ -3,6 +3,7 @@
 namespace App\Services\Recipe;
 
 use App\Recipe;
+use App\Repositories\Ingredient\IngredientRepository;
 use App\Repositories\Like\LikeRepository;
 use App\Repositories\Recipe\RecipeRepository;
 use App\Repositories\SavedRecipe\SavedRecipeRepository;
@@ -20,16 +21,18 @@ class RecipeService
     protected $stepRepository;
     protected $savedRecipeRepository;
     protected $likeRepository;
+    protected $ingredientRepository;
 
     public function __construct(RecipeRepository $recipeRepository,
-    StepRepository $stepRepository, SavedRecipeRepository $savedRecipeRepository, LikeRepository $likeRepository)
+    StepRepository $stepRepository, SavedRecipeRepository $savedRecipeRepository,
+    LikeRepository $likeRepository, IngredientRepository $ingredientRepository)
     {
         $this->recipeRepository = $recipeRepository;
         $this->stepRepository = $stepRepository;
         $this->savedRecipeRepository = $savedRecipeRepository;
         $this->likeRepository = $likeRepository;
+        $this->ingredientRepository = $ingredientRepository;
     }
-
 
     public function getLatestThreeCreatedRecipes()
     {
@@ -84,6 +87,10 @@ class RecipeService
 
         $savedRecipe = $this->recipeRepository->create($recipeAttributes);
 
+        $ingredientsArray = explode(",", $recipe['ingredients']);
+
+        $this->syncRecipeWithIngredients($savedRecipe, $ingredientsArray);
+
         return $this->syncRecipeWithSteps($savedRecipe, $recipe['steps']);
     }
 
@@ -99,6 +106,19 @@ class RecipeService
 
         //attach the steps to the recipe //many to many relationship
         return $recipe->steps()->sync($stepIds);
+    }
+
+    private function syncRecipeWithIngredients(Recipe $recipe, array $ingredients)
+    {
+        $ingredientIds = [];
+
+        foreach($ingredients as $ingredient) {
+            $ingredientIds[] = $this->ingredientRepository->create([
+                'name' => $ingredient
+            ])->id;
+        }
+
+        return $recipe->ingredients()->sync($ingredientIds);
     }
 
     private function transformRecipeData(string $recipeName, string $ingredients, string $cookingTime)
