@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Recipe;
 use App\User;
+use App\Like;
 
 
 class SavedRecipe extends Model
@@ -19,6 +20,11 @@ class SavedRecipe extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function scopeDidLoggedInUserSaveRecipe($query, $recipeId)

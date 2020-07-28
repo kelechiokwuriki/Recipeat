@@ -41,6 +41,11 @@ class RecipeService
         return $this->recipeRepository->getByOrderAndNumber('view_count', 'desc', 3)->with(['user', 'likes'])->get();
     }
 
+    public function getSavedRecipesForLoggedInUser()
+    {
+        return $this->savedRecipeRepository->where('user_id', auth()->id())->get();
+    }
+
     public function createSavedRecipe(array $savedRecipe)
     {
         return $this->savedRecipeRepository->create($savedRecipe);

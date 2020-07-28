@@ -24,4 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('recipe', 'RecipeController');
     Route::resource('my-recipes', 'MyRecipesController');
+    Route::resource('saved-recipes', 'SavedRecipesController');
 });
