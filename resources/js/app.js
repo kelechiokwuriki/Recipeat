@@ -26,14 +26,29 @@ import VueNumberInput from '@chenfengyuan/vue-number-input';
 //home
 Vue.component('home-component', require('./components/Home/HomeComponent.vue').default);
 
+//latest recipes
 Vue.component('latest-recipes', require('./components/Home/LatestRecipesComponent.vue').default);
-Vue.component('most-popular-recipes', require('./components/Home/PopularRecipesComponent.vue').default);
-Vue.component('create-recipe', require('./components/CreateRecipeComponent.vue').default);
-Vue.component('recipe-component', require('./components/RecipeComponent.vue').default);
-Vue.component('single-recipe-component', require('./components/ShowSingleRecipeInfoComponent.vue').default);
-Vue.component('my-recipes-component', require('./components/MyRecipesComponent.vue').default);
-Vue.component('search-component', require('./components/SearchComponent.vue').default);
 
+//most popular recipe
+Vue.component('most-popular-recipes', require('./components/Home/PopularRecipesComponent.vue').default);
+
+//create recipe
+Vue.component('create-recipe', require('./components/Modules/CreateRecipeComponent.vue').default);
+
+//recipe component
+Vue.component('recipe-component', require('./components/Modules/RecipeComponent.vue').default);
+
+//show single recipe data
+Vue.component('single-recipe-component', require('./components/Modules/ShowSingleRecipeInfoComponent.vue').default);
+
+//my recipe
+Vue.component('my-recipes-component', require('./components/Recipe/MyRecipesComponent.vue').default);
+
+//search component
+Vue.component('search-component', require('./components/Modules/SearchComponent.vue').default);
+
+//saved recipes
+Vue.component('saved-recipes-component', require('./components/Recipe/SavedRecipesComponent.vue').default);
 
 
 Vue.component('v-select', vSelect);
