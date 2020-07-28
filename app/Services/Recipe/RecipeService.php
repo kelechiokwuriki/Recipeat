@@ -56,7 +56,7 @@ class RecipeService
         return $this->likeRepository->create($like);
     }
 
-    public function unlikeRecipe(int $recipeId)
+    public function deleteLikedRecipe(int $recipeId)
     {
         return $this->likeRepository->delete($recipeId);
     }

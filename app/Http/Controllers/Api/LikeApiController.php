@@ -90,6 +90,6 @@ class LikeApiController extends Controller
      */
     public function destroy($id)
     {
-        return $this->recipeService->unlikeRecipe($id);
+        return $this->recipeService->deleteLikedRecipe($id);
     }
 }

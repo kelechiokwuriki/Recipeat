@@ -2841,7 +2841,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response.data === 1) {
           _this3.recipeData.likes--;
-          _this3.recipeData.logged_in_user_saved_recipe = false;
+          _this3.recipeData.logged_in_user_liked_recipe = false;
         }
       });
     },
@@ -2858,9 +2858,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    toggleRecipeLike: function toggleRecipeLike(recipeId, liked_recipe_id) {
+    toggleRecipeLike: function toggleRecipeLike(recipeId, likedRecipeId) {
       if (this.recipeData.logged_in_user_liked_recipe) {
-        return this.unLikeRecipe(recipeId);
+        return this.unLikeRecipe(likedRecipeId);
       }
 
       return this.likeRecipe(recipeId);

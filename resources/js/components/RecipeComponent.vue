@@ -79,7 +79,7 @@ export default {
                 console.log(response);
                 if(response.data === 1) {
                     this.recipeData.likes--;
-                    this.recipeData.logged_in_user_saved_recipe = false;
+                    this.recipeData.logged_in_user_liked_recipe = false;
                 }
             })
         },
@@ -92,9 +92,9 @@ export default {
                 }
             })
         },
-        toggleRecipeLike(recipeId, liked_recipe_id) {
+        toggleRecipeLike(recipeId, likedRecipeId) {
             if(this.recipeData.logged_in_user_liked_recipe) {
-                return this.unLikeRecipe(recipeId);
+                return this.unLikeRecipe(likedRecipeId);
             }
             return this.likeRecipe(recipeId);
         }
