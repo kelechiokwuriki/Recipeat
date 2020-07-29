@@ -2822,11 +2822,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      recipeData: {},
-      viewResponse: {}
+      recipeData: {}
     };
   },
   mounted: function mounted() {
@@ -2836,11 +2838,18 @@ __webpack_require__.r(__webpack_exports__);
     recordUserViewedRecipe: function recordUserViewedRecipe(recipeId) {
       var _this = this;
 
+      if (this.recipeData.logged_in_user_viewed_recipe) {
+        return;
+      }
+
       axios.post('/api/view', {
         'recipe_id': recipeId
       }).then(function (response) {
+        if (response.status === 201) {
+          _this.recipeData.views++;
+        }
+
         console.log(response);
-        _this.viewResponse = response;
       });
     },
     saveRecipe: function saveRecipe(recipeId) {
@@ -64406,7 +64415,13 @@ var render = function() {
             _c("div", [
               _c("p", { staticClass: "card-text" }, [
                 _c("small", { staticClass: "text-muted" }, [
-                  _vm._v(_vm._s(_vm.recipeData.view_count) + " views")
+                  _vm._v(
+                    _vm._s(_vm.recipeData.views) +
+                      "\n                            "
+                  ),
+                  _vm.recipeData.views > 1
+                    ? _c("span", [_vm._v("views")])
+                    : _c("span", [_vm._v("view")])
                 ])
               ])
             ]),

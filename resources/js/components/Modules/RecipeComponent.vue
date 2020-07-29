@@ -28,7 +28,10 @@
                     </div>
                     <div>
                         <p class="card-text">
-                            <small class="text-muted">{{ recipeData.view_count }} views</small>
+                            <small class="text-muted">{{ recipeData.views }}
+                                <span v-if="recipeData.views > 1">views</span>
+                                <span v-else>view</span>
+                            </small>
                         </p>
                     </div>
                     <div class="like-recipe" @click="toggleRecipeLike(recipeData.id, recipeData.liked_recipe_id)">
@@ -48,7 +51,6 @@ export default {
     data() {
         return {
             recipeData: {},
-            viewResponse: {}
         }
     },
     mounted() {
@@ -56,9 +58,13 @@ export default {
     },
     methods: {
         recordUserViewedRecipe(recipeId) {
+            if(this.recipeData.logged_in_user_viewed_recipe) { return; }
+
             axios.post('/api/view', {'recipe_id': recipeId}).then(response => {
+                if(response.status === 201) {
+                    this.recipeData.views++;
+                }
                 console.log(response);
-                this.viewResponse = response;
             })
         },
         saveRecipe(recipeId) {

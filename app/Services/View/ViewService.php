@@ -17,5 +17,4 @@ class ViewService
     {
        return $this->viewRepository->create($view);
     }
-
 }
