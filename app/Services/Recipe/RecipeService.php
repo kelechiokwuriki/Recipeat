@@ -125,7 +125,6 @@ class RecipeService
     {
         return [
             'name' => $recipeName,
-            'ingredients' => $ingredients,
             'user_id' => auth()->id(),
             'view_count' => 0,
             'cooking_time' => $cookingTime,

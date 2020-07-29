@@ -23,10 +23,12 @@ class RecipeResource extends JsonResource
             'image_source' => $this->image_source,
             'user' => $this->user->name,
             'likes' => $this->likes ? count($this->likes) : null,
+            'views' => count($this->views),
             'saved_recipe_id' => $this->savedRecipeId ? $this->savedRecipeId()->getSavedRecipeIdForRecipe($this->id) : null,
             'liked_recipe_id' => $this->likes()->getLikedRecipeIdForRecipe($this->id),
             'logged_in_user_liked_recipe' => $this->likes()->didLoggedInUserLikeRecipe($this->id),
             'logged_in_user_saved_recipe' => $this->savedRecipe()->didLoggedInUserSaveRecipe($this->id),
+            'logged_in_user_viewed_recipe' => $this->views()->didLoggedInUserLikeRecipe($this->id),
             'slug' => $this->slug,
             'steps' => $this->steps
         ];

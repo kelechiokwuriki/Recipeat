@@ -7,6 +7,7 @@ use App\Step;
 use App\Like;
 use App\SavedRecipe;
 use App\Ingredient;
+use App\View;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Recipe extends Model
@@ -36,6 +37,11 @@ class Recipe extends Model
     public function savedRecipe()
     {
         return $this->hasMany(SavedRecipe::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
     }
 
     public function savedRecipeId()

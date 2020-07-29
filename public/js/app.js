@@ -2821,34 +2821,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      recipeData: {}
+      recipeData: {},
+      viewResponse: {}
     };
   },
   mounted: function mounted() {
     this.recipeData = this.recipe;
   },
   methods: {
-    saveRecipe: function saveRecipe(recipeId) {
+    recordUserViewedRecipe: function recordUserViewedRecipe(recipeId) {
       var _this = this;
+
+      axios.post('/api/view', {
+        'recipe_id': recipeId
+      }).then(function (response) {
+        console.log(response);
+        _this.viewResponse = response;
+      });
+    },
+    saveRecipe: function saveRecipe(recipeId) {
+      var _this2 = this;
 
       axios.post('/api/save-recipe', {
         'recipe_id': recipeId
       }).then(function (response) {
         if (response.status === 201) {
-          _this.recipeData.logged_in_user_saved_recipe = true;
-          _this.recipeData.saved_recipe_id = response.data.id;
+          _this2.recipeData.logged_in_user_saved_recipe = true;
+          _this2.recipeData.saved_recipe_id = response.data.id;
         }
       });
     },
     unSaveRecipe: function unSaveRecipe(savedRecipeId) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios["delete"]('/api/save-recipe/' + savedRecipeId).then(function (response) {
         if (response.data === 1) {
-          _this2.recipeData.logged_in_user_saved_recipe = false;
+          _this3.recipeData.logged_in_user_saved_recipe = false;
         }
       });
     },
@@ -2860,27 +2872,27 @@ __webpack_require__.r(__webpack_exports__);
       return this.saveRecipe(recipeId);
     },
     unLikeRecipe: function unLikeRecipe(likedRecipeId) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"]('/api/like/' + likedRecipeId).then(function (response) {
         console.log(response);
 
         if (response.data === 1) {
-          _this3.recipeData.likes--;
-          _this3.recipeData.logged_in_user_liked_recipe = false;
+          _this4.recipeData.likes--;
+          _this4.recipeData.logged_in_user_liked_recipe = false;
         }
       });
     },
     likeRecipe: function likeRecipe(recipeId) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.post('/api/like', {
         'recipe_id': recipeId
       }).then(function (response) {
         if (response.status === 201) {
-          _this4.recipeData.likes++;
-          _this4.recipeData.logged_in_user_liked_recipe = true;
-          _this4.recipeData.liked_recipe_id = response.data.id;
+          _this5.recipeData.likes++;
+          _this5.recipeData.logged_in_user_liked_recipe = true;
+          _this5.recipeData.liked_recipe_id = response.data.id;
         }
       });
     },
@@ -2896,10 +2908,7 @@ __webpack_require__.r(__webpack_exports__);
     recipe: {
       type: Object
     }
-  } // computed() {
-  //     userLiked
-  // }
-
+  }
 });
 
 /***/ }),
@@ -64383,7 +64392,12 @@ var render = function() {
                 "a",
                 {
                   staticClass: "btn btn-success waves-effect waves-light",
-                  attrs: { href: "/recipe/" + _vm.recipeData.slug }
+                  attrs: { href: "/recipe/" + _vm.recipeData.slug },
+                  on: {
+                    click: function($event) {
+                      return _vm.recordUserViewedRecipe(_vm.recipeData.id)
+                    }
+                  }
                 },
                 [_vm._v("View")]
               )

@@ -23,7 +23,8 @@
                 <p class="card-text" v-if="recipeData.user">Recipe by {{ recipeData.user }}</p>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <a :href="'/recipe/' + recipeData.slug" class="btn btn-success waves-effect waves-light">View</a>
+                        <a :href="'/recipe/' + recipeData.slug" class="btn btn-success waves-effect waves-light"
+                        @click="recordUserViewedRecipe(recipeData.id)">View</a>
                     </div>
                     <div>
                         <p class="card-text">
@@ -46,13 +47,20 @@
 export default {
     data() {
         return {
-            recipeData: {}
+            recipeData: {},
+            viewResponse: {}
         }
     },
     mounted() {
         this.recipeData = this.recipe;
     },
     methods: {
+        recordUserViewedRecipe(recipeId) {
+            axios.post('/api/view', {'recipe_id': recipeId}).then(response => {
+                console.log(response);
+                this.viewResponse = response;
+            })
+        },
         saveRecipe(recipeId) {
             axios.post('/api/save-recipe', {'recipe_id': recipeId}).then(response => {
                 if(response.status === 201) {
@@ -104,9 +112,6 @@ export default {
             type: Object
         }
     },
-    // computed() {
-    //     userLiked
-    // }
 }
 </script>
 
@@ -117,7 +122,6 @@ export default {
 
     .like-recipe:hover, .save-recipe:hover{
         -webkit-transform: scale(1.2);
-
     }
 
     .fade-enter-active, .fade-leave-active {
