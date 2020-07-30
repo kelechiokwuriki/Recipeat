@@ -54,7 +54,7 @@ class RecipeApiController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->recipeService->createRecipe($request->all());
+        return $this->recipeService->createRecipe($request);
     }
 
     /**

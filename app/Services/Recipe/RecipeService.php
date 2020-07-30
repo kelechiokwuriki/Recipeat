@@ -9,8 +9,10 @@ use App\Repositories\Recipe\RecipeRepository;
 use App\Repositories\SavedRecipe\SavedRecipeRepository;
 use App\Repositories\Step\StepRepository;
 use App\Services\Like\LikeService;
+use App\Services\TimeService;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -22,16 +24,19 @@ class RecipeService
     protected $savedRecipeRepository;
     protected $likeRepository;
     protected $ingredientRepository;
+    protected $timeService;
+
 
     public function __construct(RecipeRepository $recipeRepository,
     StepRepository $stepRepository, SavedRecipeRepository $savedRecipeRepository,
-    LikeRepository $likeRepository, IngredientRepository $ingredientRepository)
+    LikeRepository $likeRepository, IngredientRepository $ingredientRepository, TimeService $timeService)
     {
         $this->recipeRepository = $recipeRepository;
         $this->stepRepository = $stepRepository;
         $this->savedRecipeRepository = $savedRecipeRepository;
         $this->likeRepository = $likeRepository;
         $this->ingredientRepository = $ingredientRepository;
+        $this->timeService = $timeService;
     }
 
     public function getLatestThreeCreatedRecipes()
@@ -79,19 +84,19 @@ class RecipeService
         return $this->recipeRepository->where('user_id', $userId)->with(['steps', 'likes'])->get();
     }
 
-    public function createRecipe(array $recipe)
+    public function createRecipe(Request $recipe)
     {
-        $cookingTime = $this->convertRecipeCookingTime($recipe['cooking_time'], $recipe['cooking_time_format']);
+        $cookingTime = $this->timeService->covertToCarbonTime($recipe->cooking_time, $recipe->cooking_time_format);
 
-        $recipeAttributes = $this->transformRecipeData($recipe['name'], $recipe['ingredients'], $cookingTime);
+        $recipeAttributes = $this->transformRecipeData($recipe->name, $recipe->ingredients, $cookingTime);
 
         $savedRecipe = $this->recipeRepository->create($recipeAttributes);
 
-        $ingredientsArray = explode(",", $recipe['ingredients']);
+        $ingredientsArray = explode(",", $recipe->ingredients);
 
         $this->syncRecipeWithIngredients($savedRecipe, $ingredientsArray);
 
-        $decodeSteps = json_decode($recipe['steps'], true);
+        $decodeSteps = json_decode($recipe->steps, true);
 
         return $this->syncRecipeWithSteps($savedRecipe, $decodeSteps);
     }
@@ -132,22 +137,5 @@ class RecipeService
             'image_source' => 'assets/images/gallery/food7.jpeg',
             'slug' => preg_replace('/\s+/', '-', strtolower($recipeName)).'-'.Carbon::now()->timestamp
         ];
-    }
-
-    private function convertRecipeCookingTime(int $cookingTime, string $cookingTimeFormat)
-    {
-        //e.g 10 should be to but 5 should be 05
-        $newTime = strlen($cookingTime) === 2 ? $cookingTime : '0'.$cookingTime;
-
-        if($cookingTimeFormat === 'Minutes') {
-            $newTime = '00:'.$newTime.':00';
-        }
-
-        if($cookingTimeFormat === 'Hours')
-        {
-            $newTime = $newTime.':00'.':00';
-        }
-
-        return CarbonInterval::createFromFormat('H:i:s', $newTime);
     }
 }

@@ -114,9 +114,6 @@
                 options: [ "Minutes", "Hours"]
             }
         },
-        mounted() {
-            console.log('Component mounted.')
-        },
         methods:{
             getRecipeFormData() {
                 const recipeData = new FormData();

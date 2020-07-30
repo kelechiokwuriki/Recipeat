@@ -2700,9 +2700,6 @@ __webpack_require__.r(__webpack_exports__);
       options: ["Minutes", "Hours"]
     };
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
   methods: {
     getRecipeFormData: function getRecipeFormData() {
       var recipeData = new FormData();
