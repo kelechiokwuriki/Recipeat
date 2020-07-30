@@ -18,8 +18,7 @@ export default {
         this.latestThreeRecipes = this.recipes.latestThreeRecipes;
         this.threeMostPopularRecipes = this.recipes.threeMostPopularRecipes;
 
-        window.eventBus.$on('searchEvent', this.handleSearchEvent)
-
+        window.eventBus.$on('searchEvent', this.handleSearchEvent);
     },
     methods: {
         handleSearchEvent(value) {

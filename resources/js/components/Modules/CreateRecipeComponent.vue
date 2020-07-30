@@ -24,6 +24,15 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="recipePicture">Add a picure of your food</label>
+                            <input type="file" accept=".png, .jpg" @change="handleRecipePicture" id="recipePicture">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="cookingTime">Cooking time</label>
@@ -97,26 +106,42 @@
                     cooking_time: null,
                     cooking_time_format: '',
                     ingredients: '',
+                    recipePicture: null,
                     steps: []
                 },
                 recipeStepId: 1,
                 recipeStep: '',
-                // disableSubmitButton: true,
-                options: [
-                    "Minutes",
-                    "Hours"
-                ]
+                options: [ "Minutes", "Hours"]
             }
         },
         mounted() {
             console.log('Component mounted.')
         },
         methods:{
+            getRecipeFormData() {
+                const recipeData = new FormData();
+
+                recipeData.append('name', this.recipe.name);
+                recipeData.append('cooking_time', this.recipe.cooking_time);
+                recipeData.append('cooking_time_format', this.recipe.cooking_time_format);
+                recipeData.append('ingredients', this.recipe.ingredients);
+                recipeData.append('recipePicture', this.recipe.recipePicture);
+
+                const stepsToJson = JSON.stringify({
+                    steps: this.recipe.steps,
+                });
+
+                recipeData.append('steps', stepsToJson);
+
+                return recipeData;
+            },
+            handleRecipePicture(event) {
+                this.recipe.recipePicture = event.target.files[0]
+            },
             moment(date) {
                 if(date) {
                     return moment(date);
                 }
-
                 return moment();
             },
             addStep(e) {
@@ -155,7 +180,9 @@
             submitRecipe(e) {
                 e.preventDefault();
 
-                axios.post('/api/recipe', this.recipe).then(response => {
+                let config = { headers: { 'Content-Type': 'multipart/form-data' } }
+
+                axios.post('/api/recipe', this.getRecipeFormData(), config).then(response => {
                     if(response.status === 200) {
                        this.outputFeedBack('Success',
                        'Yes! you have created your recipe',

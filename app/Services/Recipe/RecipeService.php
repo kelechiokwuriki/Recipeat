@@ -91,20 +91,22 @@ class RecipeService
 
         $this->syncRecipeWithIngredients($savedRecipe, $ingredientsArray);
 
-        return $this->syncRecipeWithSteps($savedRecipe, $recipe['steps']);
+        $decodeSteps = json_decode($recipe['steps'], true);
+
+        return $this->syncRecipeWithSteps($savedRecipe, $decodeSteps);
     }
 
-    private function syncRecipeWithSteps(Recipe $recipe, array $steps)
+    private function syncRecipeWithSteps(Recipe $recipe, $steps)
     {
         $stepIds = [];
 
-        foreach($steps as $step) {
+        foreach($steps['steps'] as $step) {
             $stepIds[] = $this->stepRepository->create([
                 'step' => $step['step']
             ])->id;
         }
 
-        //attach the steps to the recipe //many to many relationship
+        // attach the steps to the recipe many to many relationship
         return $recipe->steps()->sync($stepIds);
     }
 
@@ -126,7 +128,6 @@ class RecipeService
         return [
             'name' => $recipeName,
             'user_id' => auth()->id(),
-            'view_count' => 0,
             'cooking_time' => $cookingTime,
             'image_source' => 'assets/images/gallery/food7.jpeg',
             'slug' => preg_replace('/\s+/', '-', strtolower($recipeName)).'-'.Carbon::now()->timestamp

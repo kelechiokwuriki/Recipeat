@@ -2675,6 +2675,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2683,11 +2692,11 @@ __webpack_require__.r(__webpack_exports__);
         cooking_time: null,
         cooking_time_format: '',
         ingredients: '',
+        recipePicture: null,
         steps: []
       },
       recipeStepId: 1,
       recipeStep: '',
-      // disableSubmitButton: true,
       options: ["Minutes", "Hours"]
     };
   },
@@ -2695,6 +2704,22 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Component mounted.');
   },
   methods: {
+    getRecipeFormData: function getRecipeFormData() {
+      var recipeData = new FormData();
+      recipeData.append('name', this.recipe.name);
+      recipeData.append('cooking_time', this.recipe.cooking_time);
+      recipeData.append('cooking_time_format', this.recipe.cooking_time_format);
+      recipeData.append('ingredients', this.recipe.ingredients);
+      recipeData.append('recipePicture', this.recipe.recipePicture);
+      var stepsToJson = JSON.stringify({
+        steps: this.recipe.steps
+      });
+      recipeData.append('steps', stepsToJson);
+      return recipeData;
+    },
+    handleRecipePicture: function handleRecipePicture(event) {
+      this.recipe.recipePicture = event.target.files[0];
+    },
     moment: function (_moment) {
       function moment(_x) {
         return _moment.apply(this, arguments);
@@ -2746,7 +2771,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       e.preventDefault();
-      axios.post('/api/recipe', this.recipe).then(function (response) {
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      axios.post('/api/recipe', this.getRecipeFormData(), config).then(function (response) {
         if (response.status === 200) {
           _this.outputFeedBack('Success', 'Yes! you have created your recipe', 'success', '<a href="/home">Take me to see the recipes</a>');
 
@@ -64141,6 +64171,25 @@ var render = function() {
                 ],
                 1
               )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "recipePicture" } }, [
+                  _vm._v("Add a picure of your food")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: {
+                    type: "file",
+                    accept: ".png, .jpg",
+                    id: "recipePicture"
+                  },
+                  on: { change: _vm.handleRecipePicture }
+                })
+              ])
             ])
           ]),
           _vm._v(" "),

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecipeResource;
 use App\Services\Recipe\RecipeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,16 @@ class RecipeApiController extends Controller
      */
     public function index()
     {
-        //
+        $latestThreeRecipes = RecipeResource::collection($this->recipeService->getLatestThreeCreatedRecipes());
+
+        $threeMostPopularRecipes = RecipeResource::collection($this->recipeService->getThreeMostPopularRecipes());
+
+        $recipes = [
+            'latestThreeRecipes' => $latestThreeRecipes,
+            'threeMostPopularRecipes' => $threeMostPopularRecipes
+        ];
+
+        return $recipes;
     }
 
     /**
