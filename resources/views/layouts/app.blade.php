@@ -51,7 +51,7 @@
 
 
                         <!--notifications bell-->
-                        <li class="dropdown notification-list">
+                        {{-- <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="fe-bell noti-icon"></i>
                                 <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -140,7 +140,7 @@
                                 </a>
 
                             </div>
-                        </li>
+                        </li> --}}
                         <!-- end notifications bell-->
 
                         <!--drop down user info-->
@@ -165,16 +165,16 @@
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <i class="fe-settings"></i>
                                     <span>Settings</span>
-                                </a>
+                                </a> --}}
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <i class="fe-lock"></i>
                                     <span>Lock Screen</span>
-                                </a>
+                                </a> --}}
 
                                 <div class="dropdown-divider"></div>
 
