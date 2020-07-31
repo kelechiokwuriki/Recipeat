@@ -8,13 +8,10 @@ use App\Repositories\Like\LikeRepository;
 use App\Repositories\Recipe\RecipeRepository;
 use App\Repositories\SavedRecipe\SavedRecipeRepository;
 use App\Repositories\Step\StepRepository;
-use App\Services\Like\LikeService;
-use App\Services\TimeService;
+use App\Services\Utility\FileService;
+use App\Services\Utility\TimeService;
 use Carbon\Carbon;
-use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class RecipeService
@@ -25,11 +22,13 @@ class RecipeService
     protected $likeRepository;
     protected $ingredientRepository;
     protected $timeService;
+    protected $fileService;
 
 
     public function __construct(RecipeRepository $recipeRepository,
     StepRepository $stepRepository, SavedRecipeRepository $savedRecipeRepository,
-    LikeRepository $likeRepository, IngredientRepository $ingredientRepository, TimeService $timeService)
+    LikeRepository $likeRepository, IngredientRepository $ingredientRepository,
+    TimeService $timeService, FileService $fileService)
     {
         $this->recipeRepository = $recipeRepository;
         $this->stepRepository = $stepRepository;
@@ -37,6 +36,7 @@ class RecipeService
         $this->likeRepository = $likeRepository;
         $this->ingredientRepository = $ingredientRepository;
         $this->timeService = $timeService;
+        $this->fileService = $fileService;
     }
 
     public function getLatestThreeCreatedRecipes()
@@ -86,19 +86,19 @@ class RecipeService
 
     public function createRecipe(Request $recipe)
     {
+        if(isset($recipe->recipePicture)) {
+            $this->fileService->saveFileToLocalPublicDir($recipe);
+        }
+
         $cookingTime = $this->timeService->covertToCarbonTime($recipe->cooking_time, $recipe->cooking_time_format);
 
         $recipeAttributes = $this->transformRecipeData($recipe->name, $recipe->ingredients, $cookingTime);
 
         $savedRecipe = $this->recipeRepository->create($recipeAttributes);
 
-        $ingredientsArray = explode(",", $recipe->ingredients);
+        $this->syncRecipeWithIngredients($savedRecipe, explode(",", $recipe->ingredients));
 
-        $this->syncRecipeWithIngredients($savedRecipe, $ingredientsArray);
-
-        $decodeSteps = json_decode($recipe->steps, true);
-
-        return $this->syncRecipeWithSteps($savedRecipe, $decodeSteps);
+        return $this->syncRecipeWithSteps($savedRecipe, json_decode($recipe->steps, true));
     }
 
     private function syncRecipeWithSteps(Recipe $recipe, $steps)
