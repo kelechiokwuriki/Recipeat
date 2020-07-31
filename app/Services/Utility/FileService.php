@@ -10,7 +10,6 @@ class FileService
 {
     public function saveFileToLocalPublicDir(Request $request)
     {
-
         $file = $request->file('recipePicture');
         $fileName = time().$file->getClientOriginalName();
 

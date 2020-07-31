@@ -10,4 +10,13 @@ a variety of recipes. It also encourages people to create their own recipes.
 
 ## Running this project
 
-Coming soon
+After you have installed the prequesites
+
+- Using command line, navigate to the project directory
+- Run composer install
+- Run npm run dev
+- Run php artisan serve
+
+A link to the project's homepage will be generated, follow the link
+
+Enjoy the app!
