@@ -86,13 +86,7 @@ class RecipeService
 
     public function createRecipe(Request $recipe)
     {
-        if(isset($recipe->recipePicture)) {
-            $this->fileService->saveFileToLocalPublicDir($recipe);
-        }
-
-        $cookingTime = $this->timeService->covertToCarbonTime($recipe->cooking_time, $recipe->cooking_time_format);
-
-        $recipeAttributes = $this->transformRecipeData($recipe->name, $recipe->ingredients, $cookingTime);
+        $recipeAttributes = $this->transformRecipeData($recipe);
 
         $savedRecipe = $this->recipeRepository->create($recipeAttributes);
 
@@ -128,14 +122,14 @@ class RecipeService
         return $recipe->recipeIngredients()->sync($ingredientIds);
     }
 
-    private function transformRecipeData(string $recipeName, string $ingredients, string $cookingTime)
+    private function transformRecipeData(Request $recipe)
     {
         return [
-            'name' => $recipeName,
+            'name' => $recipe->name,
             'user_id' => auth()->id(),
-            'cooking_time' => $cookingTime,
-            'image_source' => 'assets/images/gallery/food7.jpeg',
-            'slug' => preg_replace('/\s+/', '-', strtolower($recipeName)).'-'.Carbon::now()->timestamp
+            'cooking_time' => $this->timeService->covertToCarbonTime($recipe->cooking_time, $recipe->cooking_time_format),
+            'image_source' => $this->fileService->saveFileToLocalPublicDir($recipe) ?? null,
+            'slug' => preg_replace('/\s+/', '-', strtolower($recipe->name)).'-'.Carbon::now()->timestamp
         ];
     }
 }
