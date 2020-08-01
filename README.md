@@ -13,6 +13,8 @@ a variety of recipes. It also encourages people to create their own recipes.
 After you have installed the prequesites
 
 - Using command line, navigate to the project directory
+- Run cp .env.example .env
+- Fill the database connection details
 - Run composer install
 - Run npm run dev
 - Run php artisan migrate
