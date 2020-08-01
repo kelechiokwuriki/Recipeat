@@ -15,6 +15,7 @@ After you have installed the prequesites
 - Using command line, navigate to the project directory
 - Run composer install
 - Run npm run dev
+- Run php artisan migrate
 - Run php artisan serve
 
 A link to the project's homepage will be generated, follow the link
