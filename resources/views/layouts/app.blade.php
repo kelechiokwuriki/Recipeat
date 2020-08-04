@@ -244,13 +244,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/my-recipes" class="navigation-item {{ (request()->is('what-can-i-cook')) ? 'active' : '' }}">
+                                <a href="/my-recipes" class="navigation-item {{ (request()->is('my-recipes')) ? 'active' : '' }}">
                                     <i class="fas fa-scroll"></i>
                                     <span> My recipes </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/saved-recipes" class="navigation-item {{ (request()->is('what-can-i-cook')) ? 'active' : '' }}">
+                                <a href="/saved-recipes" class="navigation-item {{ (request()->is('saved-recipes')) ? 'active' : '' }}">
                                     <i class="mdi mdi-content-save"></i>
                                     <span> Saved recipes </span>
                                 </a>
