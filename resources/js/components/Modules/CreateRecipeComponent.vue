@@ -1,10 +1,17 @@
 <template>
-    <transition name="fade" appear>
+
+<div>
+    <div class="border-bottom mb-3 p-2">
+            <h4>Add your favourite recipe</h4>
+        </div>
+
+        <transition name="fade" appear>
+
+
 
     <div class="container mt-3">
         <div class="card-box">
-            <h4 class="mt-0 mb-3 header-title">Add your favourite recipe</h4>
-
+            <!-- <h4 class="mt-0 mb-3 header-title">Add your favourite recipe</h4> -->
             <form role="form">
                 <div class="row">
                     <div class="col-sm-6">
@@ -95,6 +102,9 @@
         </div>
     </div>
     </transition>
+</div>
+
+
 </template>
 
 <script>

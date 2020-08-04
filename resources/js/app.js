@@ -22,6 +22,8 @@ import TextareaAutosize from 'vue-textarea-autosize';
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
+import InputTag from 'vue-input-tag';
+
 
 //home
 Vue.component('home-component', require('./components/Home/HomeComponent.vue').default);
@@ -56,8 +58,7 @@ Vue.component('what-can-i-cook-component', require('./components/Modules/WhatCan
 
 Vue.component('v-select', vSelect);
 Vue.component('number-input', VueNumberInput);
-
-
+Vue.component('input-tag', InputTag);
 
 Vue.use(TextareaAutosize);
 
