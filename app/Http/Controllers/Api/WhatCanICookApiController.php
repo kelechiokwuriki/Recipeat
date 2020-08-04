@@ -3,10 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\Ingredient\IngredientService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WhatCanICookApiController extends Controller
 {
+    protected $ingredientService;
+
+    public function __construct(IngredientService $ingredientService)
+    {
+        $this->ingredientService = $ingredientService;
+    }
+
+    public function searchRecipes(Request $request)
+    {
+        return $this->ingredientService->searchForRecipesbyNames($request->all());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,7 @@ class WhatCanICookApiController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -35,7 +48,6 @@ class WhatCanICookApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

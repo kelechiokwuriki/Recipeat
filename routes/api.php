@@ -24,4 +24,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('like', 'Api\LikeApiController');
     Route::resource('save-recipe', 'Api\SaveRecipeApiController');
     Route::resource('view', 'Api\ViewApiController');
+    Route::post('what-can-i-cook', 'Api\WhatCanICookApiController@searchRecipes');
 });

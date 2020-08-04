@@ -7,9 +7,16 @@
             <div class="container mt-3">
                 <div class="card-box">
                     <h4 class="mt-0 mb-3 header-title">Add your recipes separated by a comma</h4>
-                    <input-tag placeholder="Add Recipe Tag" v-model="recipeTags"></input-tag>
-
-
+                    <div class="row">
+                        <div class="col-sm-10">
+                        <textarea-autosize id="recipes" class="form-control" ref="headerTextArea"
+                                v-model="recipes" :min-height="10"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-success btn-rounded width-lg waves-effect waves-light"
+                            @click="searchRecipes">Search</button>
+                        </div>
+                    </div>
                 </div>
         </div>
     </transition>
@@ -22,17 +29,19 @@
     export default {
         data() {
             return {
-                recipeTags: [],
-                result: []
+                recipes: '',
+                recipesResult: ['test', 'test2', 'test3']
             }
         },
-        watch: {
-            recipeTags: {
-                deep: true,
-                handler(value) {
-                    console.log(value);
-                }
+        methods: {
+            searchRecipes() {
+                let recipesSplit = this.recipes.split(',');
+
+                axios.post('/api/what-can-i-cook', recipesSplit).then(response => {
+                    console.log(response);
+                })
             }
         }
+
     }
 </script>

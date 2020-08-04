@@ -3117,19 +3117,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      recipeTags: [],
-      result: []
+      recipes: '',
+      recipesResult: ['test', 'test2', 'test3']
     };
   },
-  watch: {
-    recipeTags: {
-      deep: true,
-      handler: function handler(value) {
-        console.log(value);
-      }
+  methods: {
+    searchRecipes: function searchRecipes() {
+      var recipesSplit = this.recipes.split(',');
+      axios.post('/api/what-can-i-cook', recipesSplit).then(function (response) {
+        console.log(response);
+      });
     }
   }
 });
@@ -70655,27 +70662,46 @@ var render = function() {
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
         _c("div", { staticClass: "container mt-3" }, [
-          _c(
-            "div",
-            { staticClass: "card-box" },
-            [
-              _c("h4", { staticClass: "mt-0 mb-3 header-title" }, [
-                _vm._v("Add your recipes separated by a comma")
-              ]),
+          _c("div", { staticClass: "card-box" }, [
+            _c("h4", { staticClass: "mt-0 mb-3 header-title" }, [
+              _vm._v("Add your recipes separated by a comma")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-sm-10" },
+                [
+                  _c("textarea-autosize", {
+                    ref: "headerTextArea",
+                    staticClass: "form-control",
+                    attrs: { id: "recipes", "min-height": 10 },
+                    model: {
+                      value: _vm.recipes,
+                      callback: function($$v) {
+                        _vm.recipes = $$v
+                      },
+                      expression: "recipes"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("input-tag", {
-                attrs: { placeholder: "Add Recipe Tag" },
-                model: {
-                  value: _vm.recipeTags,
-                  callback: function($$v) {
-                    _vm.recipeTags = $$v
+              _c("div", { staticClass: "col-sm-2" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "btn btn-success btn-rounded width-lg waves-effect waves-light",
+                    attrs: { type: "button" },
+                    on: { click: _vm.searchRecipes }
                   },
-                  expression: "recipeTags"
-                }
-              })
-            ],
-            1
-          )
+                  [_vm._v("Search")]
+                )
+              ])
+            ])
+          ])
         ])
       ])
     ],

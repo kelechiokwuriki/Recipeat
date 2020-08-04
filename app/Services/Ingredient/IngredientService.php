@@ -19,4 +19,15 @@ class IngredientService
     {
         return explode(",", $ingredient);
     }
+
+    public function searchForRecipesbyNames($recipeNames)
+    {
+        $temp = [];
+
+        foreach($recipeNames as $recipe) {
+            $temp[] = $this->ingredientRepository->whereCompare('name', 'like', '%'.$recipe.'%')->get();
+        }
+
+        return json_encode($temp);
+    }
 }

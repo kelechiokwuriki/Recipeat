@@ -2,6 +2,7 @@
 
 namespace App\Services\Recipe;
 
+use App\Ingredient;
 use App\Recipe;
 use App\Repositories\Ingredient\IngredientRepository;
 use App\Repositories\Like\LikeRepository;
