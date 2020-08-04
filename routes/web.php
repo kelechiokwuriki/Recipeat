@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('recipe', 'RecipeController');
     Route::resource('my-recipes', 'MyRecipesController');
     Route::resource('saved-recipes', 'SavedRecipesController');
+    Route::resource('what-can-i-cook', 'WhatCanICookController');
 });

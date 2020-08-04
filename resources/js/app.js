@@ -50,6 +50,9 @@ Vue.component('search-component', require('./components/Modules/SearchComponent.
 //saved recipes
 Vue.component('saved-recipes-component', require('./components/Recipe/SavedRecipesComponent.vue').default);
 
+//what can i cook
+Vue.component('what-can-i-cook-component', require('./components/Modules/WhatCanICookComponent.vue').default);
+
 
 Vue.component('v-select', vSelect);
 Vue.component('number-input', VueNumberInput);
