@@ -47,6 +47,10 @@
         },
         methods: {
             searchRecipes() {
+                if(this.recipes === '') {
+                    return;
+                }
+
                 let recipesSplit = this.recipes.toLowerCase().split(',');
 
                 axios.post('/api/what-can-i-cook', recipesSplit).then(response => {

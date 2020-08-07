@@ -3147,6 +3147,10 @@ __webpack_require__.r(__webpack_exports__);
     searchRecipes: function searchRecipes() {
       var _this = this;
 
+      if (this.recipes === '') {
+        return;
+      }
+
       var recipesSplit = this.recipes.toLowerCase().split(',');
       axios.post('/api/what-can-i-cook', recipesSplit).then(function (response) {
         _this.recipesResult = response.data;
