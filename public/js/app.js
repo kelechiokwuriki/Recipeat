@@ -3124,18 +3124,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       recipes: '',
-      recipesResult: ['test', 'test2', 'test3']
+      recipesResult: []
     };
   },
   methods: {
     searchRecipes: function searchRecipes() {
-      var recipesSplit = this.recipes.split(',');
+      var _this = this;
+
+      var recipesSplit = this.recipes.toLowerCase().split(',');
       axios.post('/api/what-can-i-cook', recipesSplit).then(function (response) {
-        console.log(response);
+        _this.recipesResult = response.data;
       });
     }
   }
@@ -70661,48 +70675,75 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
-        _c("div", { staticClass: "container mt-3" }, [
-          _c("div", { staticClass: "card-box" }, [
-            _c("h4", { staticClass: "mt-0 mb-3 header-title" }, [
-              _vm._v("Add your recipes separated by a comma")
+        _c(
+          "div",
+          { staticClass: "container mt-3" },
+          [
+            _c("div", { staticClass: "card-box" }, [
+              _c("h4", { staticClass: "mt-0 mb-3 header-title" }, [
+                _vm._v("Add your recipes separated by a comma")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-sm-10" },
+                  [
+                    _c("textarea-autosize", {
+                      ref: "headerTextArea",
+                      staticClass: "form-control",
+                      attrs: { id: "recipes", "min-height": 10 },
+                      model: {
+                        value: _vm.recipes,
+                        callback: function($$v) {
+                          _vm.recipes = $$v
+                        },
+                        expression: "recipes"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-success btn-rounded width-lg waves-effect waves-light",
+                      attrs: { type: "button" },
+                      on: { click: _vm.searchRecipes }
+                    },
+                    [_vm._v("Search")]
+                  )
+                ])
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                { staticClass: "col-sm-10" },
-                [
-                  _c("textarea-autosize", {
-                    ref: "headerTextArea",
-                    staticClass: "form-control",
-                    attrs: { id: "recipes", "min-height": 10 },
-                    model: {
-                      value: _vm.recipes,
-                      callback: function($$v) {
-                        _vm.recipes = $$v
-                      },
-                      expression: "recipes"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-2" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-success btn-rounded width-lg waves-effect waves-light",
-                    attrs: { type: "button" },
-                    on: { click: _vm.searchRecipes }
-                  },
-                  [_vm._v("Search")]
-                )
-              ])
-            ])
-          ])
-        ])
+            _vm.recipesResult.length > 0
+              ? [
+                  _c("div", { staticClass: "border-bottom mb-3 p-2" }, [
+                    _c("h4", [_vm._v("Results")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    _vm._l(_vm.recipesResult, function(recipe) {
+                      return _c(
+                        "div",
+                        { key: recipe.name, staticClass: "col" },
+                        [_c("recipe-component", { attrs: { recipe: recipe } })],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                ]
+              : _vm._e()
+          ],
+          2
+        )
       ])
     ],
     1

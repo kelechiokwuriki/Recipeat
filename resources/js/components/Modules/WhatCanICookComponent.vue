@@ -18,8 +18,20 @@
                         </div>
                     </div>
                 </div>
-        </div>
-    </transition>
+
+                <template v-if="recipesResult.length > 0">
+                    <div class="border-bottom mb-3 p-2">
+                        <h4>Results</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col" v-for="recipe in recipesResult"
+                            v-bind:key="recipe.name">
+                                <recipe-component :recipe="recipe"></recipe-component>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </transition>
 
     </div>
 
@@ -30,15 +42,15 @@
         data() {
             return {
                 recipes: '',
-                recipesResult: ['test', 'test2', 'test3']
+                recipesResult: []
             }
         },
         methods: {
             searchRecipes() {
-                let recipesSplit = this.recipes.split(',');
+                let recipesSplit = this.recipes.toLowerCase().split(',');
 
                 axios.post('/api/what-can-i-cook', recipesSplit).then(response => {
-                    console.log(response);
+                    this.recipesResult = response.data;
                 })
             }
         }

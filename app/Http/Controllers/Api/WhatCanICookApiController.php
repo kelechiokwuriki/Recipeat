@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecipeResource;
 use App\Services\Ingredient\IngredientService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,9 +17,13 @@ class WhatCanICookApiController extends Controller
         $this->ingredientService = $ingredientService;
     }
 
-    public function searchRecipes(Request $request)
+    public function searchIngredients(Request $request)
     {
-        return $this->ingredientService->searchForRecipesbyNames($request->all());
+        $res = $this->ingredientService->searchForRecipesbyNames($request->all());
+
+        // Log::debug($res);
+
+        return $res;
     }
     /**
      * Display a listing of the resource.
