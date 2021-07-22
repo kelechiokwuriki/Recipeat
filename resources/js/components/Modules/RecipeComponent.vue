@@ -1,7 +1,7 @@
 <template>
     <transition name="fade" appear>
         <div class="card shadow-lg" style="width: 18rem;">
-            <img class="card-img-top shadow-md img-fluid recipe-image" :src="recipeData.image_source" alt="Card image cap">
+            <img class="card-img-top shadow-md img-fluid recipe-image" :src="imageSource" alt="Card image cap">
             <div class="card-img-overlay h-50">
                 <h5 class="card-title bg-secondary text-white w-50 p-0 border border-secondary rounded text-center">
                     <i class="far fa-clock mr-1"></i>{{ recipeData.cooking_time }}
@@ -55,6 +55,16 @@ export default {
     },
     mounted() {
         this.recipeData = this.recipe;
+    },
+    computed: {
+        imageSource() {
+            let pathName = window.location.pathname;
+            if (this.recipeData.image_source) {
+                return pathName.substring(1, pathName-1) + this.recipeData.image_source;
+            }
+
+            return pathName.substring(1, pathName-1) + 'uploads/1596166617food1.jpeg';
+        }
     },
     methods: {
         recordUserViewedRecipe(recipeId) {

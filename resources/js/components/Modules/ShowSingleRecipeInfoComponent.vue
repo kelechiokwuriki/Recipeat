@@ -55,7 +55,7 @@
             imageSource() {
                 let pathName = window.location.pathname;
                 if (this.recipe.image_source) {
-                    return pathName.substring(1, pathName-1);
+                    return pathName.substring(1, pathName-1) + this.recipe.imageSource;
                 }
 
                 return pathName.substring(1, pathName-1) + 'uploads/1596166617food1.jpeg';

@@ -2871,6 +2871,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.recipeData = this.recipe;
   },
+  computed: {
+    imageSource: function imageSource() {
+      var pathName = window.location.pathname;
+
+      if (this.recipeData.image_source) {
+        return pathName.substring(1, pathName - 1) + this.recipeData.image_source;
+      }
+
+      return pathName.substring(1, pathName - 1) + 'uploads/1596166617food1.jpeg';
+    }
+  },
   methods: {
     recordUserViewedRecipe: function recordUserViewedRecipe(recipeId) {
       var _this = this;
@@ -3064,7 +3075,7 @@ __webpack_require__.r(__webpack_exports__);
       var pathName = window.location.pathname;
 
       if (this.recipe.image_source) {
-        return pathName.substring(1, pathName - 1);
+        return pathName.substring(1, pathName - 1) + this.recipe.imageSource;
       }
 
       return pathName.substring(1, pathName - 1) + 'uploads/1596166617food1.jpeg';
@@ -70367,7 +70378,7 @@ var render = function() {
       [
         _c("img", {
           staticClass: "card-img-top shadow-md img-fluid recipe-image",
-          attrs: { src: _vm.recipeData.image_source, alt: "Card image cap" }
+          attrs: { src: _vm.imageSource, alt: "Card image cap" }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "card-img-overlay h-50" }, [
