@@ -3060,9 +3060,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    currentUrlPathName: function currentUrlPathName() {
+    imageSource: function imageSource() {
       var pathName = window.location.pathname;
-      return pathName.substring(1, pathName - 1);
+
+      if (this.recipe.image_source) {
+        return pathName.substring(1, pathName - 1);
+      }
+
+      return pathName.substring(1, pathName - 1) + 'uploads/1596166617food1.jpeg';
     }
   },
   methods: {
@@ -70604,10 +70609,7 @@ var render = function() {
             _c("img", {
               staticClass:
                 "card-img-top shadow-md img-fluid single-recipe-image",
-              attrs: {
-                src: _vm.currentUrlPathName + _vm.recipe.image_source,
-                alt: "Card image cap"
-              }
+              attrs: { src: _vm.imageSource, alt: "Card image cap" }
             })
           ])
         ]),

@@ -15,7 +15,7 @@
             <div class="row justify-content-center mt-3">
                 <div class="col-sm-4">
                     <div class="card bg-dark text-white">
-                        <img :src="currentUrlPathName + recipe.image_source" alt="Card image cap" class="card-img-top shadow-md img-fluid single-recipe-image">
+                        <img :src="imageSource" alt="Card image cap" class="card-img-top shadow-md img-fluid single-recipe-image">
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -52,9 +52,13 @@
             }
         },
         computed: {
-            currentUrlPathName() {
+            imageSource() {
                 let pathName = window.location.pathname;
-                return pathName.substring(1, pathName-1);
+                if (this.recipe.image_source) {
+                    return pathName.substring(1, pathName-1);
+                }
+
+                return pathName.substring(1, pathName-1) + 'uploads/1596166617food1.jpeg';
             }
         },
         methods: {
