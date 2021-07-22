@@ -125,11 +125,13 @@ class RecipeService
 
     private function transformRecipeData(Request $recipe)
     {
+        $recipeImage = $recipe->file('recipePicture');
+
         return [
             'name' => $recipe->name,
             'user_id' => auth()->id(),
             'cooking_time' => $this->timeService->covertToCarbonTime($recipe->cooking_time, $recipe->cooking_time_format),
-            'image_source' => $this->fileService->saveFileToLocalPublicDir($recipe) ?? null,
+            'image_source' => $recipeImage ? $this->fileService->saveFileToLocalPublicDir($recipeImage) : null,
             'slug' => preg_replace('/\s+/', '-', strtolower($recipe->name)).'-'.Carbon::now()->timestamp
         ];
     }

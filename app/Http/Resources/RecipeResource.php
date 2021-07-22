@@ -21,7 +21,7 @@ class RecipeResource extends JsonResource
             'view_count' => $this->view_count,
             'cooking_time' => $this->cooking_time,
             'image_source' => $this->image_source,
-            'user' => $this->user->name,
+            'user' => $this->user ? $this->user->name : null,
             'likes' => $this->likes ? count($this->likes) : null,
             'views' => count($this->views),
             'saved_recipe_id' => $this->savedRecipeId ? $this->savedRecipeId()->getSavedRecipeIdForRecipe($this->id) : null,

@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
-    public function saveFileToLocalPublicDir(Request $request)
+    public function saveFileToLocalPublicDir($recipeImage)
     {
-        $file = $request->file('recipePicture');
-        $fileName = time().$file->getClientOriginalName();
+        $fileName = time().$recipeImage->getClientOriginalName();
 
-        return Storage::disk('public')->putFileAs('uploads', $file, $fileName);
+        return Storage::disk('public')->putFileAs('uploads', $recipeImage, $fileName);
     }
 }
